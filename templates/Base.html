@@ -11,24 +11,34 @@
             <h1>Sign Up</h1>
         </div>
         <div id = 'InfoBoxes'>
+            <form>
             <div id = 'Email' class = 'Info'>
-                <form>
                 <div>Email:</div>
+                <input type = 'text' class = 'Text-Box' name = 'Email'>
+            </div>
+            <div id = 'Name' class = 'Info'>
+                <div>Name:</div>
                 <input type = 'text' class = 'Text-Box'>
-                </form>
             </div>
             <div id = 'Username' class = 'Info'>
-                <form>
                 <div>Username:</div>
                 <input type = 'text' class = 'Text-Box'>
-                </form>
             </div>
             <div id = 'Password' class = 'Info'>
-                <form>
                 <div>Password:</div>
                 <input type = 'text' class = 'Text-Box'>
-                </form>
             </div>
+            <div class = 'Info'>
+                <div>Account Type:</div>
+                <select name = 'Account_type' id = 'Type'>
+                    <option value = 'Customer'>Customer</option>
+                    <option value = 'Vendor'>Vendor</option>
+                </select>
+            </div>
+            <div id = 'Create Account'>
+                <input type = 'button' value = 'Create Account'>
+            </div>
+            </form>
         </div>
     </div>
 </body>
