@@ -3,18 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>login</title>
-<<<<<<< HEAD
-=======
-    <link href="../css/Base.css" rel="stylesheet" type="text/css">
+    <link href="../css/login.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-    <div>
-        <form action="/login" method="POST">
-            <input type="text" name="Info" placeholder="Username or Email"> <br>
-            <input type="text" name="Password" placeholder="Password"> <br>
-            <input type="submit" value="Submit">
-        </form>
->>>>>>> bbe8275 (auth fixes)
+<body> 
+    <div  id = 'Outline'>
+        <div id = 'SignUp'>
+            <h1>Login</h1>
+        </div>
+        <div id = 'InfoBoxes'>
+            <form action="/" method="POST">
+
+                <div id = 'Email' class = 'Info'>
+                    <h2>Username or Email:</h2>
+                    <input type = 'text' class = 'Text-Box2' name = 'Email'>
+                </div>
+                
+                <div>
+                    <h2>Password:</h2>
+                    <input type = 'text' class = 'Text-Box2'>
+                </div>
+                
+                <div>
+                    <input type="submit" value="Submit" class="sub">
+                </div> 
+
+                <div class = 'Info2'>
+                    <a href = '../templates/Base.html'>Don't have an account?</a>
+                </div>
+            </form>
+           
+        </div>
     </div>
 </body>
 </html>

@@ -10,15 +10,11 @@ conn_str = f"mysql://root:{Conn.password()}@localhost/DbProject"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
-<<<<<<< HEAD
-
-=======
 @app.route('/', methods=['GET'])
 def get_signup():
     return render_template('Base.html')
 
 @app.route('/', methods=['POST'])
->>>>>>> bbe8275 (auth fixes)
 def signup():
     try:
         conn.execute(
@@ -33,14 +29,11 @@ def signup():
         print(error)
         return render_template('Base.html', error=error, success=None)
 
-<<<<<<< HEAD
-=======
 @app.route('/login', methods=['GET'])
 def get_login():
     return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
->>>>>>> bbe8275 (auth fixes)
 def login():
     try:
         auth = conn.execute(
