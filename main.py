@@ -8,6 +8,7 @@ conn_str = f"mysql://root:{Conn.password()}@localhost/DbProject"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
+
 @app.route('/', method=['POST'])
 def signup():
     try:
@@ -16,12 +17,13 @@ def signup():
             request.form
         )
         conn.commit()
-        return render_template('sign.html', error=None, success="Data inserted successfully!")
+        return render_template('Base.html', error=None, success="Data inserted successfully!")
 
     except Exception as e:
         error = e.orig.args[1]
         print(error)
         return render_template('Base.html', error=error, success=None)
+
 
 @app.route('/login', method=['POST'])
 def login():
