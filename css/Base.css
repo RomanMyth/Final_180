@@ -1,29 +1,64 @@
-*
-{
-    padding: 0;
+* {
     margin: 0;
+    padding: 0;
 }
 
-#Outline
-{
-    text-align:center;
-    padding-top:50px;
+body {
+    font-size: 16px;
+    color: #333;
+    font-family: Arial, sans-serif;
 }
 
-.Info
-{
-    display:flex;
-    flex-direction:column;
-    font-size:25px;
-    align-items:center;
-    text-align:center;
-    justify-content:center;
-    padding:20px;
+#Outline {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-#InfoBoxes
-{
-    align-items:center;
-    text-align:center;
-    justify-content:center;
+#SignUp {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#InfoBoxes {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.Info{
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.Text-Box {
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#CreateAccount > input[type="button"] {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#account_button {
+    width:40%;
+    height:25px;
+    margin-bottom:20px;
+    margin-top:10px;
 }
