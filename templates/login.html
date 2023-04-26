@@ -2,16 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
-    <link href="css/Base.css" rel="stylesheet" type="text/css">
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+
+        @media screen and (max-width: 480px) {
+            form {
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <form action="/" method="POST">
-            <input type="text" name="Info" placeholder="Username or Email"> <br>
-            <input type="text" name="Password" placeholder="Password""> <br>
-            <input type="submit" value="Submit">
-        </form>
-    </div>
+    <form action="/" method="POST">
+        <h2 style="margin-left: -100;">Username or Email</h2>
+        <input type="text" name="Info" placeholder="Enter information">
+        <h2 style="margin-left: -80px;">Password</h2>
+        <input type="password" name="Password" placeholder="Password">
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
