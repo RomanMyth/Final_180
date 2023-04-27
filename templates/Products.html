@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Products</title>
-</head>
-<body>
-    {% for product in products %}
-        <div>{{ product['Product_name'] }}</div>
-        <div>{{ product['Description'] }}</div>
-        <div>{{ product['Price'] }}</div>
-    {% endfor %}
-</body>
-</html>
+{% extends "taskbar.html" %}
+{% block body %}
+    <div id="con">
+        {% for product in products %}
+            <div>{{ product['Product_name'] }}</div>
+            <div>{{ product['Description'] }}</div>
+            <div>{{ product['Price'] }}</div>
+        {% endfor %}
+    </div>
+{% endblock %}
