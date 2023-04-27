@@ -6,12 +6,29 @@
     <link href="../static/Login.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div>
+    <div  id = 'Outline'>
+        <div id = 'SignUp'>
+            <h1>Login</h1>
+        </div>
+        <div id = 'InfoBoxes'>
         <form action="/login" method="POST">
-            <input type="text" name="Info" placeholder="Username or Email"> <br>
-            <input type="text" name="Password" placeholder="Password"> <br>
-            <input type="submit" value="Submit">
+          
+            <div id = 'Email' class = 'Info'> 
+                <h2>Username or Email:</h2>
+                <input type="text" name="Info" placeholder="Username or Email" class = 'Text-Box2'> <br>
+            </div>
+            <div>
+                <h2>Password:</h2>
+                <input type="text" name="Password" placeholder="Password" class = 'Text-Box2'> <br>
+            </div>
+            <div>
+                <input type="submit" value="Submit" class="sub">
+            </div> 
+            <div class = 'Info2'>
+                <a href = '../templates/Base.html'>Don't have an account?</a>
+            </div>
         </form>
+        </div>
     </div>
 </body>
 </html>
