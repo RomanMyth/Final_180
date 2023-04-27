@@ -5,6 +5,10 @@
     <title>Products</title>
 </head>
 <body>
-
+    {% for product in products %}
+        <div>{{ product['Product_name'] }}</div>
+        <div>{{ product['Description'] }}</div>
+        <div>{{ product['Price'] }}</div>
+    {% endfor %}
 </body>
 </html>

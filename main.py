@@ -53,5 +53,11 @@ def login():
         return render_template('login.html', error=error, success=f'hello')
 
 
+
+@app.route('/products', methods=['GET'])
+def get_products():
+    products = conn.execute(text(f"SELECT * FROM Products;")).all()
+    return render_template('Products.html', products=products, success=None)
+
 if __name__ == '__main__':
     app.run(debug=True)
