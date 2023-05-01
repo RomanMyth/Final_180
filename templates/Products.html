@@ -5,6 +5,10 @@
             <div>{{ product['Product_name'] }}</div>
             <div>{{ product['Description'] }}</div>
             <div>{{ product['Price'] }}</div>
+            <form>
+                <input type="hidden" value="{{ product['Product_id'] }}">
+                <input type="submit" value="Submit" class="sub">
+            </form>
         {% endfor %}
     </div>
 {% endblock %}

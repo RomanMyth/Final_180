@@ -18,11 +18,15 @@ def get_signup():
 def signup():
     try:
         conn.execute(
-            text("INSERT INTO UserInfo (`Username`, `Name`, `Email`, `Password`, `Account_Type`) values (:Username, :Password, :Username, :Password, 'Customer')"),
+            text("INSERT INTO UserInfo (`Username`, `Name`, `Email`, `Password`, `Account_Type`) values (:Username, :Name, :Email, :Password, :Account_type);"),
+            request.form
+        )
+        conn.execute(
+            text("INSERT INTO CART (`User_id`) SELECT User_id FROM UserInfo WHERE Username = :Username"),
             request.form
         )
         conn.commit()
-        return render_template('Base.html', error=None, success="Data inserted successfully!")
+        return redirect('/products')
 
     except Exception as e:
         error = e.orig.args[1]
@@ -39,16 +43,16 @@ def get_login():
 def login():
     try:
         auth = conn.execute(
-            text("SELECT if(Password = :Password, 'Yes', 'No') FROM UserInfo WHERE Username = :Info OR Email = :Info;"),
+            text("SELECT if(Password = :Password, 'Yes', 'No'), Account_Type FROM UserInfo WHERE Username = :Info OR Email = :Info;"),
             request.form
         ).one_or_none()
         print(auth)
-        print(auth)
-        if auth[0] == 'Yes':
-            return redirect('/products')
+        if auth is not None and auth[0] == 'Yes':
+            if auth[1] == 'Customer':
+                return redirect('/products')
         else:
-            print(auth)
             return render_template('login.html', error=None, success="Incorrect Username/Email or Password")
+
     except Exception as e:
         error = e.orig.args[1]
         print(error)
@@ -59,6 +63,10 @@ def login():
 def get_products():
     products = conn.execute(text(f"SELECT * FROM Products;")).all()
     return render_template('Products.html', products=products, success=None)
+
+# @app.route('/products', methods=['POST'])
+# def add_to_cart():
+
 
 
 @app.route('/cart/<User_id>', methods=['GET'])

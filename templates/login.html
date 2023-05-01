@@ -21,6 +21,9 @@
                 <h2>Password:</h2>
                 <input type="text" name="Password" placeholder="Password" class = 'Text-Box2'> <br>
             </div>
+            {% if success %}
+                <h4 style="Color: red;">{{ success }}</h4>
+            {% endif %}
             <div>
                 <input type="submit" value="Submit" class="sub">
             </div>
