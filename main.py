@@ -1,5 +1,5 @@
 import sys
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
 
 import Conn
@@ -45,7 +45,7 @@ def login():
         print(auth)
         print(auth)
         if auth[0] == 'Yes':
-            return render_template('Products.html', error=None, success="Data inserted successfully!")
+            return redirect('/products')
         else:
             print(auth)
             return render_template('login.html', error=None, success="Incorrect Username/Email or Password")
