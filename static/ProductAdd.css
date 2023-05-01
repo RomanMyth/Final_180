@@ -9,11 +9,9 @@ body {
     font-family: Arial, sans-serif;
 }
 
-#Returns {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    box-sizing: border-box;
+textarea {
+    resize:none;
+    width:100%;
 }
 
 #Header {
@@ -23,8 +21,7 @@ body {
     margin-bottom: 20px;
 }
 
-
-.Text-Box {
+.text-box {
     width: 100%;
     border: 1px solid #ddd;
     padding: 10px;
@@ -36,12 +33,15 @@ body {
     font-weight: bold;
 }
 
-#Return_Information {
+#Outline {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#Info-Boxes {
     background-color: #fff;
     padding: 20px;
     border: 1px solid #ddd;
-}
-
-textarea {
-    resize:none;
 }

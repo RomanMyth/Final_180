@@ -41,15 +41,6 @@ body {
     margin-bottom: 10px;
 }
 
-input[type="button"] {
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-}
-
 a {
     color: #007bff;
     text-decoration: none;
