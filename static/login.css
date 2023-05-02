@@ -53,3 +53,26 @@ body {
     display: flex;
     justify-content: center;
 }
+
+.alert {
+  padding: 10px;
+  background-color: #f44336;
+  color: white;
+  width: 90%;
+  border: 1px solid #f44336;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}

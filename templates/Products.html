@@ -8,7 +8,7 @@
             <div class="desc_con">Description:<br>{{ product['Description'] }}</div>
             <div class="price_con">{{ product['Price'] }}</div>
         <div id="prodbut">
-            <form>
+            <form action="/products" method="POST">
                 <input type="hidden" value="{{ product['Product_id'] }}">
                 <input type="submit" value="Submit" class="sub">
             </form>

@@ -22,7 +22,11 @@
                 <input type="text" name="Password" placeholder="Password" class = 'Text-Box2'> <br>
             </div>
             {% if success %}
-                <h4 style="Color: red;">{{ success }}</h4>
+                <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <h4 style="Color: white;">{{ success }}</h4>
+                </div>
+
             {% endif %}
             <div>
                 <input type="submit" value="Submit" class="sub">
