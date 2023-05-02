@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.hydrated {
+    margin: 0px 0px 0px 0px;
+}
+
+#taskb {
+    display: flex;
+    flex-direction: row;
+    background-color: #ddd;
+    padding: 10px;
+    font-size: 20px;
+    justify-content: space-between;
+}
+
+#items {
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.taskitem {
+    width: 12%;
+    text-align: center;
+    border-width: 0px 2px;
+    border-style: solid;
+    border-color: transparent;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#acctItem {
+    width: 50%;
+    text-align: right;
+    font-size: 30px;
+    padding-right: 20px;
+}
+
+.taskitem:hover {
+    border-color: black
+}

@@ -1,14 +1,19 @@
 {% extends "taskbar.html" %}
 {% block body %}
+<link rel="stylesheet" href="../static/product.css">
     <div id="con">
         {% for product in products %}
-            <div>{{ product['Product_name'] }}</div>
-            <div>{{ product['Description'] }}</div>
-            <div>{{ product['Price'] }}</div>
+        <div id="indcon">
+            <div class="prod_con">{{ product['Product_name'] }}</div>
+            <div class="desc_con">Description:<br>{{ product['Description'] }}</div>
+            <div class="price_con">{{ product['Price'] }}</div>
+        <div id="prodbut">
             <form>
                 <input type="hidden" value="{{ product['Product_id'] }}">
                 <input type="submit" value="Submit" class="sub">
             </form>
+        </div>
+        </div>
         {% endfor %}
     </div>
 {% endblock %}
