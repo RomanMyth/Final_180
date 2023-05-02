@@ -14,41 +14,51 @@
         </div>  
         <div id = 'Info-Boxes'>
             <form>
-            <div class = 'Info' id = 'Product_Name'>
-                <div>Products Name</div>
-                <input type = 'text' class = 'text-box'>
-            </div>
-            <div class = 'Info' id = 'Description'>
-                <div>Description for the item</div>
-                <textarea class = 'Text-Box' cols="50" rows="8"></textarea>
-            </div>
-            <div class = 'Info' id = 'Quantity'>
-                <div>Products Quantity</div>
-                <input type = 'text' class = 'text-box'>
-            </div>
-            <div class = 'Info' id = 'Warranty'>
-                <div>Products Warranty</div>
-                <input type = 'text' class = 'text-box'>
-            </div>
-            <div class = 'Info' id = 'Price'>
-                <div>Products Price</div>
-                <input type = 'text' class = 'text-box'>
-            </div>
-            <div class = 'Info' id = 'Size'>
-                <div>Products Sizes</div>
-                <input type = 'text' class = 'text-box'>
-            </div>
-            <div class = 'Info' id = 'Colors'>
-                <div>Products Colors</div>
-                <input type = 'text' class = 'text-box'>
-            </div>
-            <div class = 'Info' id = 'Images'>
-                <div>Products Image (url)</div>
-                <input type = 'text' class = 'text-box'>
-            </div>
-            <div id = 'Submit_Product'>
-                <input type = 'submit' value = 'Add Product'>
-            </div>
+                {% if account[0][0] == 'Admin' %}
+                    <select>
+                        {% for vendor in vendors %}
+                            <option value="{{ vendor['User_id'] }}">{{ vendor['Name'] }}</option>
+                        {% endfor %}
+
+                    </select>
+                {% else %}
+                    <div>Test</div>
+                {% endif %}
+                <div class = 'Info' id = 'Product_Name'>
+                    <div>Products Name</div>
+                    <input type = 'text' class = 'text-box'>
+                </div>
+                <div class = 'Info' id = 'Description'>
+                    <div>Description for the item</div>
+                    <textarea class = 'Text-Box' cols="50" rows="8"></textarea>
+                </div>
+                <div class = 'Info' id = 'Quantity'>
+                    <div>Products Quantity</div>
+                    <input type = 'text' class = 'text-box'>
+                </div>
+                <div class = 'Info' id = 'Warranty'>
+                    <div>Products Warranty</div>
+                    <input type = 'text' class = 'text-box'>
+                </div>
+                <div class = 'Info' id = 'Price'>
+                    <div>Products Price</div>
+                    <input type = 'text' class = 'text-box'>
+                </div>
+                <div class = 'Info' id = 'Size'>
+                    <div>Products Sizes</div>
+                    <input type = 'text' class = 'text-box'>
+                </div>
+                <div class = 'Info' id = 'Colors'>
+                    <div>Products Colors</div>
+                    <input type = 'text' class = 'text-box'>
+                </div>
+                <div class = 'Info' id = 'Images'>
+                    <div>Products Image (url)</div>
+                    <input type = 'text' class = 'text-box'>
+                </div>
+                <div id = 'Submit_Product'>
+                    <input type = 'submit' value = 'Add Product'>
+                </div>
             </form>
         </div>
         

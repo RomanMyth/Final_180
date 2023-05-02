@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="con">
+        {% for product in products %}
+            <div>{{ product['Product_name'] }}</div>
+            <div>{{ product['Description'] }}</div>
+            <div>{{ product['Price'] }}</div>
+            <form>
+                <input type="hidden" value="{{ product['Product_id'] }}">
+                <input type="submit" value="Submit" class="sub">
+            </form>
+        {% endfor %}
+    </div>
+</body>
+</html>

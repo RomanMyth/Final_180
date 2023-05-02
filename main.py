@@ -1,5 +1,5 @@
 import sys
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
 
 import Conn
@@ -43,13 +43,17 @@ def get_login():
 def login():
     try:
         auth = conn.execute(
-            text("SELECT if(Password = :Password, 'Yes', 'No'), Account_Type FROM UserInfo WHERE Username = :Info OR Email = :Info;"),
+            text("SELECT if(Password = :Password, 'Yes', 'No'), Account_Type, User_id FROM UserInfo WHERE Username = :Info OR Email = :Info;"),
             request.form
         ).one_or_none()
         print(auth)
         if auth is not None and auth[0] == 'Yes':
             if auth[1] == 'Customer':
                 return redirect('/products')
+            elif auth[1] == 'Vendor':
+                return redirect(url_for('get_vendor_products', user=auth[2]))
+            elif auth[1] == 'Admin':
+                return redirect('/product_edit')
         else:
             return render_template('login.html', error=None, success="Incorrect Username/Email or Password")
 
@@ -62,12 +66,33 @@ def login():
 @app.route('/products', methods=['GET'])
 def get_products():
     products = conn.execute(text(f"SELECT * FROM Products;")).all()
+    print(products)
     return render_template('Products.html', products=products, success=None)
 
 # @app.route('/products', methods=['POST'])
 # def add_to_cart():
 
+@app.route('/product_edit/<user>', methods=['GET'])
+def get_vendor_products(user):
+    products = conn.execute(text(f"SELECT * FROM Products Where User_id = {user};")).all()
+    return render_template('ProductEdit.html', products=products, success=None)
 
+@app.route('/product_edit', methods=['GET'])
+def get_admin_products():
+    products = conn.execute(text(f"SELECT * FROM Products")).all()
+    return render_template('ProductEdit.html', products=products, success=None)
+
+
+@app.route('/product_add', methods=['GET'])
+def add_products():
+    account = conn.execute(text(f'SELECT Account_Type From UserInfo Where User_id = {8}')).all()
+    vendors = []
+    if account[0][0] == 'Admin':
+        vendors = conn.execute(text(f'SELECT Account_Type, User_id, Name From UserInfo Where Account_Type = "Vendor"')).all()
+
+    print(account, '\n', vendors)
+
+    return render_template('ProductAdd.html', account = account, vendors = vendors)
 
 @app.route('/cart/<User_id>', methods=['GET'])
 def get_cart_items(User_id):
