@@ -102,7 +102,7 @@ def add_products():
 
     print(account, '\n', vendors)
 
-    return render_template('ProductAdd.html', account = account, vendors = vendors)
+    return render_template('ProductAdd.html', account=account, vendors=vendors)
 
 @app.route('/cart', methods=['GET'])
 def get_cart_items():
