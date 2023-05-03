@@ -6,7 +6,7 @@
         <div id="indcon">
             <div class="prod_con">{{ product['Product_name'] }}</div>
             <div class="desc_con">Description:<br>{{ product['Description'] }}</div>
-            <div class="price_con">{{ product['Price'] }}</div>
+            <img src="{{ product['Image'] }}">
         <div id="prodbut">
             <form action="/products" method="POST">
                 <input type="hidden" value="{{ product['Product_id'] }}">
