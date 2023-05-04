@@ -1,9 +1,32 @@
-{% extends "taskbar.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/cartfromthepark.css">
+</head>
+<body>
+    {% extends "taskbar.html" %}
 {% block body %}
-    <div id="con">
-        {% for item in items %}
-            <div>{{ item['Product_name'] }}</div>
-            <div>{{ item['Price'] }}</div>
-        {% endfor %}
+<div  id = 'Outline'>
+    <div id = 'SignUp'>
+        <h1>Cart</h1>
     </div>
+<div class="con">
+        {% for item in items %}
+      
+        <div class="container">
+            <div class="product box">{{ item['Product_name'] }}</div>
+            <div class="box"></div>
+            <div class="item box">{{ item['Price'] }}</div>
+        </div>
+        {% endfor %}
+</div>    
+</div>
+
 {% endblock %}
+</body>
+</html>
+
