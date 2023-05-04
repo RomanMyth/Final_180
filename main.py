@@ -1,8 +1,6 @@
 import sys
 from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
-#import mysql.connector
-import base64
 import Conn
 app = Flask(__name__)
 conn_str = f"mysql://root:{Conn.password()}@localhost/DbProject"
@@ -32,7 +30,7 @@ def signup():
             request.form
         )
         conn.commit()
-        cookie=redirect('/products')
+        cookie = redirect('/products')
         cookie.set_cookie('User_id', str(user[0]))
         return cookie
 
@@ -79,13 +77,26 @@ def get_products():
     print(products)
     return render_template('Products.html', products=products, success=None)
 
-# @app.route('/products', methods=['POST'])
-# def add_to_cart():
+
+@app.route('/products', methods=['POST'])
+def add_to_cart():
+    id = request.cookies.get('User_id')
+    cid = conn.execute(text(f"SELECT Cart_id FROM cart Where User_id = {id};")).one_or_none()
+    print(cid[0])
+    conn.execute(
+        text(f"INSERT INTO Cart_Items(`Cart_id`, `Product_id`) VALUES ({cid[0]}, :Product_id);"),
+        request.form
+    )
+    conn.commit()
+
+    return redirect('/products')
+
 
 @app.route('/product_edit/<user>', methods=['GET'])
 def get_vendor_products(user):
     products = conn.execute(text(f"SELECT * FROM Products Where User_id = {user};")).all()
     return render_template('ProductEdit.html', products=products, success=None)
+
 
 @app.route('/product_edit', methods=['GET'])
 def get_admin_products():
@@ -103,6 +114,7 @@ def add_products():
     print(account, '\n', vendors)
 
     return render_template('ProductAdd.html', account=account, vendors=vendors)
+
 
 @app.route('/cart', methods=['GET'])
 def get_cart_items():
