@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order</title>
-</head>
-<body>
-    <div>
-        <div>
-            <h1>
-                Order Page
-            </h1>
-        </div>
+{% extends "taskbar.html" %}
+{% block body %}
+    <div id="con">
+        {% for order in range(orders|length) %}
+            <div>Status: {{ orders[order]['Status'] }}</div>
+            <div>Order Date: {{ orders[order]['date_ordered'] }}</div>
+            {% for product in products[order] %}
+                {% for i in product %}
+                    <div>{{ i['Product_name'] }}</div>
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
     </div>
-</body>
-</html>
+
+{% endblock %}

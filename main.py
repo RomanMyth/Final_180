@@ -110,17 +110,35 @@ def add_products():
     vendors = []
     if account[0][0] == 'Admin':
         vendors = conn.execute(text(f'SELECT Account_Type, User_id, Name From UserInfo Where Account_Type = "Vendor"')).all()
-
-    print(account, '\n', vendors)
-
-    return render_template('ProductAdd.html', account=account, vendors=vendors)
-
+    return render_template('ProductAdd.html', account = account, vendors = vendors)
 
 @app.route('/cart', methods=['GET'])
 def get_cart_items():
     id = request.cookies.get('User_id')
     items = conn.execute(text(f"SELECT c.User_id, c.Cart_id, ci.Product_id, p.Product_name, p.Price FROM Cart c NATURAL JOIN Cart_items ci JOIN Products p WHERE c.Cart_id = (SELECT Cart_id FROM Cart WHERE User_id = {id} LIMIT 1) AND p.Product_id = ci.Product_id;")).all()
     return render_template('Cart.html', items=items, success=None)
+
+
+@app.route('/orders', methods=['GET'])
+def get_orders():
+    User_id = request.cookies.get('User_id')
+    orders = conn.execute(text(f'SELECT Status, date_ordered, Order_id FROM Orders WHERE User_id = {User_id}')).all()
+    print(orders)
+    order_items = []
+    products = []
+    for i in orders:
+        order_items.append(conn.execute(text(f'SELECT Product_id FROM Order_items WHERE Order_id = {i[2]}')).all())
+
+    for i in order_items:
+        items = []
+        for j in range(len(i)):
+            items.append(conn.execute(text(f"SELECT * FROM Products Natural JOIN Images WHERE Products.Product_id = {i[j][0]};")).all())
+        products.append(items)
+    print('\n', products)
+
+    print(order_items)
+    print(order_items[0])
+    return render_template('order.html', orders = orders, products = products, success=None)
 
 
 if __name__ == '__main__':
