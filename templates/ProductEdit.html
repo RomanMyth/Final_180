@@ -90,14 +90,15 @@ p {
             <h1>Edit/Delete Products</h1>
             <div id="con">
                 {% for product in products %}
-                    <form>
-                        <input type="hidden" value="{{ product['Product_id'] }}">
+                <h4>Warning! Pressing Delete will irreversibly delete the Product</h4>
+                    <form action='/product_delete' method="POST">
+                        <input type="hidden" name="Product_id" value="{{ product['Product_id'] }}">
                         <input type="submit" value="Delete This Product" class="sub">
                     </form>
                     <div>{{ product['Product_name'] }}</div>
                     <div>{{ product['Description'] }}</div>
                     <div>{{ product['Price'] }}</div>
-                    <form>
+                    <form action='/product_edit' method="POST">
                         <select name="Attribute">
                             <option>Select Attribute to Edit</option>
                             <option value = 'Product_name'>Product Name</option>

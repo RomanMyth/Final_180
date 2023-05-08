@@ -105,6 +105,19 @@ def get_vendor_products():
         products = conn.execute(text(f"SELECT * FROM Products")).all()
     return render_template('ProductEdit.html', products=products, success=None)
 
+@app.route('/product_edit', methods=['POST'])
+def update_products():
+    column = request.form['Attribute']
+    conn.execute(text(f'UPDATE Products SET {column} = :Change WHERE Product_id = :Product_id'), request.form)
+    conn.commit()
+    return redirect('/product_edit')
+
+@app.route('/product_delete', methods=['POST'])
+def update_products():
+    conn.execute(text(f'DELETE FROM Products Where Product_id = :Product_id'), request.form)
+    conn.commit()
+    return redirect('/product_edit')
+
 
 @app.route('/product_add', methods=['GET'])
 def add_products():
