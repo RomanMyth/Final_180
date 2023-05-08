@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "vendtask.html" %}
+{% block body %}
     <div id="con">
         {% for product in products %}
             <div>{{ product['Product_name'] }}</div>
@@ -16,5 +11,4 @@
             </form>
         {% endfor %}
     </div>
-</body>
-</html>
+{% endblock %}
