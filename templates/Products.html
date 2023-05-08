@@ -5,8 +5,8 @@
         {% for product in products %}
         <div id="indcon">
             <div class="prod_con">{{ product['Product_name'] }}</div>
-            <div class="desc_con">Description:<br>{{ product['Description'] }}</div>
             <img src="{{ product['Image'] }}">
+            <div class="desc_con">Description:<br>{{ product['Description'] }}</div>
         <div id="prodbut">
             <form action="/products" method="POST">
                 <input type="hidden" name="Product_id" value="{{ product['Product_id'] }}">

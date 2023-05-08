@@ -46,3 +46,12 @@
     justify-content: space-around;
 }
 
+img {
+    width: 50%;
+    aspect-ratio: 2/1;
+    object-fit: contain;
+    mix-blend-mode: color-burn;
+    display: flex;
+    align-self: center;
+}
+
