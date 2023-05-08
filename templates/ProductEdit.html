@@ -1,14 +1,109 @@
-{% extends "vendtask.html" %}
-{% block body %}
-    <div id="con">
-        {% for product in products %}
-            <div>{{ product['Product_name'] }}</div>
-            <div>{{ product['Description'] }}</div>
-            <div>{{ product['Price'] }}</div>
-            <form>
-                <input type="hidden" value="{{ product['Product_id'] }}">
-                <input type="submit" value="Submit" class="sub">
-            </form>
-        {% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product List</title>
+  <style>
+    body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.product-box {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px;
+  width: 300px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin: 0;
+  text-align: center;
+}
+
+p {
+  font-size: 1em;
+  margin: 0;
+}
+
+.price {
+  font-weight: bold;
+  text-align: center;
+}
+
+.submit-button {
+  display: block;
+  margin: 20px auto 0;
+  background-color: gray;
+  border: none;
+  color: #fff;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submit-button:hover {
+  background-color: lightgray;
+}
+.dis{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#SignUp {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+#Outline {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+  </style>
+</head>
+<body>
+  {% extends "vendtask.html" %}
+  {% block body %}
+  <div  id = 'Outline'>
+    <div id = 'SignUp'>
+        <h1>Edit/Delete Products</h1>
     </div>
-{% endblock %}
+  </div>
+    <div class="container">
+      {% for product in products %}
+        <div class="product-box">
+          <h2>{{ product['Product_name'] }}</h2>
+          <p class="dis">{{ product['Description'] }}</p>
+          <p class="price">{{ product['Price'] }}</p>
+          <form>
+            <input type="hidden" value="{{ product['Product_id'] }}">
+            <input type="submit" value="Add to Cart" class="submit-button">
+          </form>
+        </div>
+      {% endfor %}
+    </div>
+  {% endblock %}
+</body>
+</html>
