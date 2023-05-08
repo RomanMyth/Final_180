@@ -83,47 +83,34 @@ p {
 }
   </style>
 </head>
-  {% extends "vendtask.html" %}
-  {% block body %}
-  <div  id = 'Outline'>
-    <div id = 'SignUp'>
-        <h1>Edit/Delete Products</h1>
-    <div id="con">
-        {% for product in products %}
-            <form>
-                <input type="hidden" value="{{ product['Product_id'] }}">
-                <input type="submit" value="Delete This Product" class="sub">
-            </form>
-            <div>{{ product['Product_name'] }}</div>
-            <div>{{ product['Description'] }}</div>
-            <div>{{ product['Price'] }}</div>
-            <form>
-                <select name="Attribute">
-                    <option>Select Attribute to Edit</option>
-                    <option value = 'Product_name'>Product Name</option>
-                    <option value = 'Description'>Product Description</option>
-                    <option value = 'Warranty'>Warranty</option>
-                    <option value = 'Price'>Product Price</option>
-                </select>
-                <textarea name="Change" cols="50" rows="8"></textarea>
-                <input type="hidden" name="Product_id" value="{{ product['Product_id'] }}">
-                <input type="submit" value="Submit Changes" class="sub">
-            </form>
-        {% endfor %}
-    </div>
-  </div>
-    <div class="container">
-      {% for product in products %}
-        <div class="product-box">
-          <h2>{{ product['Product_name'] }}</h2>
-          <p class="dis">{{ product['Description'] }}</p>
-          <p class="price">{{ product['Price'] }}</p>
-          <form>
-            <input type="hidden" value="{{ product['Product_id'] }}">
-            <input type="submit" value="Add to Cart" class="submit-button">
-          </form>
+{% extends "vendtask.html" %}
+{% block body %}
+    <div  id = 'Outline'>
+        <div id = 'SignUp'>
+            <h1>Edit/Delete Products</h1>
+            <div id="con">
+                {% for product in products %}
+                    <form>
+                        <input type="hidden" value="{{ product['Product_id'] }}">
+                        <input type="submit" value="Delete This Product" class="sub">
+                    </form>
+                    <div>{{ product['Product_name'] }}</div>
+                    <div>{{ product['Description'] }}</div>
+                    <div>{{ product['Price'] }}</div>
+                    <form>
+                        <select name="Attribute">
+                            <option>Select Attribute to Edit</option>
+                            <option value = 'Product_name'>Product Name</option>
+                            <option value = 'Description'>Product Description</option>
+                            <option value = 'Warranty'>Warranty</option>
+                            <option value = 'Price'>Product Price</option>
+                        </select>
+                        <textarea name="Change" cols="50" rows="8"></textarea>
+                        <input type="hidden" name="Product_id" value="{{ product['Product_id'] }}">
+                        <input type="submit" value="Submit Changes" class="sub">
+                    </form>
+                {% endfor %}
+            </div>
         </div>
-      {% endfor %}
     </div>
-  </div>
-  {% endblock %}
+{% endblock %}
