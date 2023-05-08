@@ -58,10 +58,10 @@ def login():
                 cookie = redirect('/products')
                 cookie.set_cookie('User_id', str(auth[2]))
                 return cookie
-            elif auth[1] == 'Vendor':
-                return redirect(url_for('get_vendor_products', user=auth[2]))
-            elif auth[1] == 'Admin':
-                return redirect('/product_edit')
+            else:
+                cookie = redirect('/product_edit')
+                cookie.set_cookie('User_id', str(auth[2]))
+                return cookie
         else:
             return render_template('login.html', error=None, success="Incorrect Username/Email or Password")
 
@@ -92,21 +92,22 @@ def add_to_cart():
     return redirect('/products')
 
 
-@app.route('/product_edit/<user>', methods=['GET'])
-def get_vendor_products(user):
-    products = conn.execute(text(f"SELECT * FROM Products Where User_id = {user};")).all()
-    return render_template('ProductEdit.html', products=products, success=None)
-
-
 @app.route('/product_edit', methods=['GET'])
-def get_admin_products():
-    products = conn.execute(text(f"SELECT * FROM Products")).all()
+def get_vendor_products():
+    id = request.cookies.get('User_id')
+    account = conn.execute(text(f'SELECT Account_type FROM UserInfo WHERE User_id = {id}')).one_or_none()
+    print(account)
+    if account[0] == 'Vendor':
+        products = conn.execute(text(f"SELECT * FROM Products Where User_id = {id};")).all()
+    else:
+        products = conn.execute(text(f"SELECT * FROM Products")).all()
     return render_template('ProductEdit.html', products=products, success=None)
 
 
 @app.route('/product_add', methods=['GET'])
 def add_products():
-    account = conn.execute(text(f'SELECT Account_Type From UserInfo Where User_id = {8}')).all()
+    id = request.cookies.get('User_id')
+    account = conn.execute(text(f'SELECT Account_Type From UserInfo Where User_id = {id}')).all()
     vendors = []
     if account[0][0] == 'Admin':
         vendors = conn.execute(text(f'SELECT Account_Type, User_id, Name From UserInfo Where Account_Type = "Vendor"')).all()
