@@ -1,15 +1,65 @@
-{% extends "taskbar.html" %}
-{% block body %}
-    <div id="con">
-        {% for order in range(orders|length) %}
-            <div>Status: {{ orders[order]['Status'] }}</div>
-            <div>Order Date: {{ orders[order]['date_ordered'] }}</div>
-            {% for product in products[order] %}
-                {% for i in product %}
-                    <div>{{ i['Product_name'] }}</div>
-                {% endfor %}
-            {% endfor %}
-        {% endfor %}
-    </div>
 
-{% endblock %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <style>
+     #con {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid black;
+        border-radius: 5px;
+        width: 100%;
+        flex-direction: column;
+    }
+    .order-box {
+        background-color: #f2f2f2;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 5px;
+        text-align: center;
+        border: 2px solid gray;
+    }
+    .item {
+        margin-bottom: 10px;
+    }
+    #SignUp {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+#Outline {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+</style>
+    <body>
+        {% extends "taskbar.html" %}
+        {% block body %}
+        <div  id = 'Outline'>
+        <div id = 'SignUp'>
+            <h1>Orders</h1>
+        </div>
+            <div id="con">
+                {% for order in range(orders|length) %}
+                    <div class="order-box" style="padding: 20px;">
+                        <div class="item" style="margin: 15px;">Status: {{ orders[order]['Status'] }}</div>
+                        <div class="item" style="margin: 15px;">Order Date: {{ orders[order]['date_ordered'] }}</div>
+                        {% for product in products[order] %}
+                            {% for i in product %}
+                                <div class="item" style="margin: 15px;">{{ i['Product_name'] }}</div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endblock %}
+        </div>
+    </body>
+</html> 
