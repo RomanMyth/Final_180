@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/Recieved_Orders.css">
+    <title>Recieved Orders</title>
+</head>
+<body>
+    <div id = 'Outline'>
+        <div id = 'Title'>
+            <h1>Recieved Orders</h1>
+        </div>
+        <div id="con">
+            {% for order in range(orders|length) %}
+                <div class="order-box" style="padding: 20px;">
+                    <div class="item" style="margin: 15px;">Status: {{ orders[order]['Status'] }}</div>
+                    <div class="item" style="margin: 15px;">Order Date: {{ orders[order]['date_ordered'] }}</div>
+                    {% for product in products[order] %}
+                        {% for i in product %}
+                            <div class="item" style="margin: 15px;">{{ i['Product_name'] }}</div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endblock %}
+        </div>
+    </body>
+</html> 

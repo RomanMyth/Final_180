@@ -1,0 +1,50 @@
+    #Title {
+        background-color: #f0f0f0;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    #Outline {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    
+    #con {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid black;
+        border-radius: 5px;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .order-box {
+        background-color: #f2f2f2;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 5px;
+        text-align: center;
+        border: 2px solid gray;
+    }
+
+    .item {
+        margin-bottom: 10px;
+    }
+
+    #SignUp {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    }
+
+    #Outline {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    }
