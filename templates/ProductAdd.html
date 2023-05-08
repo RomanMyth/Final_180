@@ -5,36 +5,36 @@
             <h1>Add products</h1>
         </div>  
         <div id = 'Info-Boxes'>
-            <form>
+            <form action="/product_add" method="POST">
                 {% if account[0][0] == 'Admin' %}
                     <select>
                         {% for vendor in vendors %}
-                            <option value="{{ vendor['User_id'] }}">{{ vendor['Name'] }}</option>
+                            <option value="{{ vendor['User_id'] }}" name="vendorid">{{ vendor['Name'] }}</option>
                         {% endfor %}
 
                     </select>
                 {% else %}
-                    <div>Test</div>
+                    <input type="hidden" value="{{ id }}" name="vendorid">
                 {% endif %}
                 <div class = 'Info' id = 'Product_Name'>
                     <div>Products Name</div>
-                    <input type = 'text' class = 'text-box'>
+                    <input type = 'text' class = 'text-box' name="productname">
                 </div>
                 <div class = 'Info' id = 'Description'>
                     <div>Description for the item</div>
-                    <textarea class = 'Text-Box' cols="50" rows="8"></textarea>
+                    <textarea class = 'text-Box' cols="50" rows="8" name="description"></textarea>
                 </div>
                 <div class = 'Info' id = 'Quantity'>
                     <div>Products Quantity</div>
-                    <input type = 'text' class = 'text-box'>
+                    <input type = 'text' class = 'text-box' name="quantity">
                 </div>
                 <div class = 'Info' id = 'Warranty'>
-                    <div>Products Warranty</div>
-                    <input type = 'text' class = 'text-box'>
+                    <div>Products Warranty <br>(YYYY/MM/DD HH:MM:SS)<br>For no warranty type "None"</div>
+                    <input type = 'text' class = 'text-box' placeholder="YYYY/MM/DD HH:MM:SS" name="warranty">
                 </div>
                 <div class = 'Info' id = 'Price'>
                     <div>Products Price</div>
-                    <input type = 'text' class = 'text-box'>
+                    <input type = 'text' class = 'text-box' name="price">
                 </div>
                 <div class = 'Info' id = 'Size'>
                     <div>Products Sizes</div>

@@ -1,6 +1,8 @@
 import sys
+import sqlalchemy
 from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
+from datetime import datetime
 import Conn
 app = Flask(__name__)
 conn_str = f"mysql://root:{Conn.password()}@localhost/DbProject"
@@ -111,7 +113,27 @@ def add_products():
     vendors = []
     if account[0][0] == 'Admin':
         vendors = conn.execute(text(f'SELECT Account_Type, User_id, Name From UserInfo Where Account_Type = "Vendor"')).all()
-    return render_template('ProductAdd.html', account = account, vendors = vendors)
+    return render_template('ProductAdd.html', account=account, vendors=vendors, id=id)
+
+
+@app.route('/product_add', methods=['POST'])
+def add_products_post():
+    warranty = request.form["warranty"]
+    print(warranty)
+    print(type(warranty))
+    if warranty == "None":
+        warranty = sqlalchemy.sql.null()
+    else:
+        warranty = datetime.strptime(warranty, '%Y/%m/%d %H:%M:%S')
+    print(warranty)
+    print(type(warranty))
+    conn.execute(
+        text(f"INSERT INTO Products (Product_name, Description, Quantity, Warranty, Price, User_id) Values (:productname, :description, :quantity, '{warranty}', :price, :vendorid)"),
+        request.form
+    )
+    conn.commit()
+    return redirect("/product_add")
+
 
 @app.route('/cart', methods=['GET'])
 def get_cart_items():
@@ -139,7 +161,7 @@ def get_orders():
 
     print(order_items)
     print(order_items[0])
-    return render_template('order.html', orders = orders, products = products, success=None)
+    return render_template('order.html', orders=orders, products=products, success=None)
 
 
 if __name__ == '__main__':
