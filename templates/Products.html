@@ -5,7 +5,7 @@
         {% for product in products %}
         <div id="indcon">
             <div class="prod_con">{{ product['Product_name'] }}</div>
-            <img src="{{ product['Image'] }}">
+            <div class="images"><img src="{{ product['Image'] }}"></div>
             <div class="desc_con">Description:<br>{{ product['Description'] }}</div>
             {% if product[9] %}
             <div class="price_con">${{ product['New_price'] }}</div>

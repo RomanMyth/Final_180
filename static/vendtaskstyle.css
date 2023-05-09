@@ -9,7 +9,7 @@
 #taskb {
     display: flex;
     flex-direction: row;
-    background-color: #ddd;
+    background-color: #598fbc;
     padding: 10px;
     font-size: 20px;
     justify-content: space-between;
@@ -43,4 +43,9 @@
 
 .taskitem:hover {
     border-color: black
+}
+
+a{
+    color: black;
+    text-decoration: none;
 }

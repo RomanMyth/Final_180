@@ -1,3 +1,7 @@
+body{
+    background-color: lightgrey;
+}
+
 #con{
     width: 100vw;
     display: flex;
@@ -10,15 +14,14 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    border-style: solid;
-    border-width: 2px;
-    border-color: grey;
+    border: 1px solid #4d7894;
     margin: 7px;
     border-radius: 15px;
+    background-color: white;
 }
 
 #indcon:hover{
-    border-width: 4px;
+    border-width: 2px;
 }
 
 .prod_con{
@@ -46,6 +49,12 @@
     justify-content: space-around;
 }
 
+.images{
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+}
+
 img {
     width: 50%;
     aspect-ratio: 2/1;
@@ -55,3 +64,12 @@ img {
     align-self: center;
 }
 
+.sub{
+    font-size: 15px;
+    font-weight: bold;
+    height: 35px;
+    width: 100px;
+    border: 1px solid #4d7894;
+    background-color: white;
+    border-radius: 5px;
+}
