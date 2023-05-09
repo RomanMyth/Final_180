@@ -1,4 +1,5 @@
 import sys
+
 import sqlalchemy
 from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
@@ -9,13 +10,12 @@ conn_str = f"mysql://root:{Conn.password()}@localhost/DbProject"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
-
-@app.route('/', methods=['GET'])
+@app.route('/signup', methods=['GET'])
 def get_signup():
     return render_template('Base.html')
 
 
-@app.route('/', methods=['POST'])
+@app.route('/signup', methods=['POST'])
 def signup():
     try:
         conn.execute(
@@ -72,6 +72,11 @@ def login():
         print(error)
         return render_template('login.html', error=error, success=f'hello')
 
+
+@app.route('/', methods=['GET'])
+def default():
+    products = conn.execute(text(f"SELECT * FROM Products Natural JOIN Images Left JOIN (SELECT * FROM Discount WHERE Expiration IS NULL or now() < Expiration) as vdiscount ON Products.Product_id = vdiscount.Product_id;")).all()
+    return render_template('Products_start.html', products=products, success=None)
 
 @app.route('/products', methods=['GET'])
 def get_products():
