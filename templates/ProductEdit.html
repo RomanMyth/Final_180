@@ -1,117 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product List</title>
-  <style>
-    body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 20px;
-}
-
-.product-box {
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  padding: 20px;
-  margin: 20px;
-  width: 300px;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-h2 {
-  font-size: 1.5em;
-  margin: 0;
-  text-align: center;
-}
-
-p {
-  font-size: 1em;
-  margin: 0;
-}
-
-.price {
-  font-weight: bold;
-  text-align: center;
-}
-
-.submit-button {
-  display: block;
-  margin: 20px auto 0;
-  background-color: gray;
-  border: none;
-  color: #fff;
-  font-size: 1em;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.submit-button:hover {
-  background-color: lightgray;
-}
-.dis{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-#SignUp {
-    background-color: #f0f0f0;
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-#Outline {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    box-sizing: border-box;
-}
-  </style>
-</head>
-{% extends "vendtask.html" %}
-{% block body %}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="../static/productlist.css">
+  </head>
+  {% extends "vendtask.html" %}
+  {% block body %}
     <div  id = 'Outline'>
         <div id = 'SignUp'>
-            <h1>Edit/Delete Products</h1>
-            <div id="con">
-                {% for product in products %}
-                <h4>Warning! Pressing Delete will irreversibly delete the Product</h4>
-                    <form action='/product_delete' method="POST">
-                        <input type="hidden" name="Product_id" value="{{ product['Product_id'] }}">
-                        <input type="submit" value="Delete This Product" class="sub">
-                    </form>
-                    <div>{{ product['Product_name'] }}</div>
-                    <div>{{ product['Description'] }}</div>
-                    <div>{{ product['Price'] }}</div>
-                    <form action='/product_edit' method="POST">
-                        <select name="Attribute">
-                            <option>Select Attribute to Edit</option>
-                            <option value = 'Product_name'>Product Name</option>
-                            <option value = 'Description'>Product Description</option>
-                            <option value = 'Warranty'>Warranty</option>
-                            <option value = 'Price'>Product Price</option>
-                        </select>
-                        <textarea name="Change" cols="50" rows="8"></textarea>
-                        <input type="hidden" name="Product_id" value="{{ product['Product_id'] }}">
-                        <input type="submit" value="Submit Changes" class="sub">
-                    </form>
-                {% endfor %}
-            </div>
+            <h1>Edit/Remove Products</h1>
         </div>
     </div>
-{% endblock %}
+    <div class="container">
+      {% for product in products %}
+        <div class="product-box">
+          <form>
+            <input type="hidden" value="{{ product['Product_id'] }}">
+            <input type="submit" value="Delete This Product" class="submit-button">
+          </form>
+          <div>
+            <h2>{{ product['Product_name'] }}</h2>
+            <p class="dis">{{ product['Description'] }}</p>
+          </div>
+          <div class="price">{{ product['Price'] }}</div>
+          <form>
+            <select name="Attribute" class="swag">
+              <option>Select Attribute to Edit</option>
+              <option value="Product_name">Product Name</option>
+              <option value="Description">Product Description</option>
+              <option value="Warranty">Warranty</option>
+              <option value="Price">Product Price</option>
+            </select>
+            <textarea name="Change" cols="50" rows="8" class="txt"></textarea>
+            <input type="hidden" name="Product_id" value="{{ product['Product_id'] }}">
+            <input type="submit" value="Submit Changes" class="submit-button">
+          </form>
+        </div>
+      {% endfor %}
+    </div>
+  {% endblock %}
+</html>
+
