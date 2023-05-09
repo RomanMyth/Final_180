@@ -5,8 +5,9 @@
 
 body {
     font-size: 16px;
-    color: #333;
+    color: black;
     font-family: Arial, sans-serif;
+    background-color: lightgrey;
 }
 
 #Outline {
@@ -17,16 +18,19 @@ body {
 }
 
 #SignUp {
-    background-color: #f0f0f0;
+    background-color: #598fbc;
     padding: 20px;
     text-align: center;
     margin-bottom: 20px;
+    border: 1px solid #4d7894;
+    border-radius: 10px;
 }
 
 #InfoBoxes {
-    background-color: #fff;
+    background-color: #598fbc;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #4d7894;
+    border-radius: 10px;
 }
 
 .Info{
@@ -35,28 +39,43 @@ body {
 }
 
 .Text-Box {
-    width: 100%;
-    border: 1px solid #ddd;
+    width: 95%;
+    border: 1px solid #4d7894;
     padding: 10px;
     margin-bottom: 10px;
+    background-color: white;
+    border-radius: 10px;
 }
 
 a {
-    color: #007bff;
+    color: black;
     text-decoration: none;
 }
 
-#account_button {
-    width:40%;
-    height:25px;
-    margin-bottom:20px;
-    margin-top:10px;
+#Create_Account{
+    display: flex;
+    justify-content: center;
 }
 
-#trouble {
-    width: 100%;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-    Height:100px;
+#account_button {
+    font-size: 15px;
+    font-weight: bold;
+    width: 25%;
+    height: 35px;
+    margin-bottom:20px;
+    margin-top:10px;
+    border: 1px solid #4d7894;
+    background-color: white;
+    border-radius: 5px;
+}
+
+#Type{
+    border: 1px solid #4d7894;
+    background-color: white;
+    border-radius: 5px;
+    width: 20%;
+    height: 27px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
 }
