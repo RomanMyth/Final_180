@@ -25,13 +25,14 @@
 .taskitem {
     width: 12%;
     text-align: center;
-    border-width: 0px 2px;
+    border-width: 1.5px 1.5px 1.5px 1.5px;
     border-style: solid;
     border-color: transparent;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 15px;
 }
 
 #acctItem {
@@ -42,7 +43,7 @@
 }
 
 .taskitem:hover {
-    border-color: black
+    border-color: #83c9f7;
 }
 
 a{
