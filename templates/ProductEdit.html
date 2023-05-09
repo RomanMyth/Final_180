@@ -16,16 +16,16 @@
     <div class="container">
       {% for product in products %}
         <div class="product-box">
-          <form>
-            <input type="hidden" value="{{ product['Product_id'] }}">
-            <input type="submit" value="Delete This Product" class="submit-button">
+          <form action='/product_delete' method="POST">
+            <input type="hidden" name="Product_id" value="{{ product['Product_id'] }}">
+            <input type="submit" value="Delete This Product" class="sub">
           </form>
           <div>
             <h2>{{ product['Product_name'] }}</h2>
             <p class="dis">{{ product['Description'] }}</p>
           </div>
           <div class="price">{{ product['Price'] }}</div>
-          <form>
+          <form action='/product_edit' method="POST">
             <select name="Attribute" class="swag">
               <option>Select Attribute to Edit</option>
               <option value="Product_name">Product Name</option>
