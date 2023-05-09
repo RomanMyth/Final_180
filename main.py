@@ -75,7 +75,7 @@ def login():
 
 @app.route('/products', methods=['GET'])
 def get_products():
-    products = conn.execute(text(f"SELECT * FROM Products Natural JOIN Images;")).all()
+    products = conn.execute(text(f"SELECT * FROM Products Natural JOIN Images Left JOIN (SELECT * FROM Discount WHERE Expiration IS NULL or now() < Expiration) as vdiscount ON Products.Product_id = vdiscount.Product_id;")).all()
     print(products)
     return render_template('Products.html', products=products, success=None)
 
@@ -105,12 +105,14 @@ def get_vendor_products():
         products = conn.execute(text(f"SELECT * FROM Products")).all()
     return render_template('ProductEdit.html', products=products, success=None)
 
+
 @app.route('/product_edit', methods=['POST'])
 def update_products():
     column = request.form['Attribute']
     conn.execute(text(f'UPDATE Products SET {column} = :Change WHERE Product_id = :Product_id'), request.form)
     conn.commit()
     return redirect('/product_edit')
+
 
 @app.route('/product_delete', methods=['POST'])
 def delete_products():
