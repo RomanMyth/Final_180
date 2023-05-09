@@ -1,17 +1,36 @@
-{% if account[0][0] == 'Customer' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/chat.css">
+</head>
+<body>
+    {% if account[0][0] == 'Customer' %}
     {% extends "taskbar.html" %}
-{% else %}
-    {% extends "vendtask.html" %}
-{% endif %}
-{% block body %}
-    {% for chat in range(chats|length) %}
-        <div>Seperate Chat</div>
-        {% for message in messages[chat] %}
-            {% if message[2] | string == id | string%}
-                <div class="right">{{ message[0] }}</div>
+  
             {% else %}
-                <div class="left">{{ message[0] }}</div>
+                {% extends "vendtask.html" %}
             {% endif %}
-        {% endfor %}
+            {% block body %}  
+    <div  id = 'Outline'>
+        <div id = 'SignUp'>
+            <h1>Chats</h1>
+        </div>
+        {% for chat in range(chats|length) %}
+        <div class="chat">
+            {% for message in messages[chat] %}
+                {% if message[2] | string == id | string%}
+                    <div class="right">{{ message[0] }}</div>
+                {% else %}
+                    <div class="left">{{ message[0] }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
     {% endfor %}
+    </div>
 {% endblock %}
+</body>
+</html>
