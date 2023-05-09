@@ -143,12 +143,32 @@ def add_products_post():
     print(type(warranty))
     if warranty == "None":
         warranty = sqlalchemy.sql.null()
+        conn.execute(
+            text(
+                f"INSERT INTO Products (Product_name, Description, Quantity, Warranty, Price, User_id) Values (:productname, :description, :quantity, {warranty}, :price, :vendorid)"),
+            request.form
+        )
     else:
         warranty = datetime.strptime(warranty, '%Y/%m/%d %H:%M:%S')
+        conn.execute(
+            text(
+                f"INSERT INTO Products (Product_name, Description, Quantity, Warranty, Price, User_id) Values (:productname, :description, :quantity, '{warranty}', :price, :vendorid)"),
+            request.form
+        )
     print(warranty)
     print(type(warranty))
+    pid = conn.execute(text("SELECT max(Product_id) FROM Products;")).one_or_none()
+    print(pid[0])
     conn.execute(
-        text(f"INSERT INTO Products (Product_name, Description, Quantity, Warranty, Price, User_id) Values (:productname, :description, :quantity, '{warranty}', :price, :vendorid)"),
+        text(f"INSERT INTO Sizes (Product_id, Sizes) Values ('{pid[0]}', :Sizes);"),
+        request.form
+    )
+    conn.execute(
+        text(f"INSERT INTO Colors (Product_id, Colors) Values ('{pid[0]}', :Colors);"),
+        request.form
+    )
+    conn.execute(
+        text(f"INSERT INTO Images (Product_id, Image) Values ('{pid[0]}', :Images);"),
         request.form
     )
     conn.commit()

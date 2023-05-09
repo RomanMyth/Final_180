@@ -9,6 +9,7 @@
             <div class="desc_con">Description:<br>{{ product['Description'] }}</div>
             {% if product[9] %}
             <div class="price_con">${{ product['New_price'] }}</div>
+            <div class="old_price_con"><s>${{ product['Price'] }}</s></div>
             {% else %}
             <div class="price_con">${{ product['Price'] }}</div>
             {% endif %}
