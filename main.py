@@ -178,6 +178,33 @@ def get_orders():
     print(order_items[0])
     return render_template('order.html', orders=orders, products=products, success=None)
 
+@app.route('/chat', methods=['GET'])
+def get_customer_chat():
+    id = request.cookies.get('User_id')
+    chats = conn.execute(text(f'SELECT Chat_id FROM Chat Where User_id1 = {id}')).all()
+    account = conn.execute(text(f'SELECT Account_type from UserInfo WHERE User_id = {id}')).all()
+    print(account)
+    messages = []
+    print(chats)
+    for chat in chats:
+        messages.append(conn.execute(text(f'SELECT * FROM Chat_message WHERE Chat_id = {chat[0]}')).all())
+    print(messages)
+
+    return render_template('Chat.html', chats=chats, messages=messages, id=id, account=account)
+
+
+@app.route('/admin_chat', methods=['GET'])
+def get_admin_chat():
+    id = request.cookies.get('User_id')
+    chats = conn.execute(text(f'SELECT Chat_id FROM Chat Where User_id2 = {id}')).all()
+    account = conn.execute(text(f'SELECT Account_type from UserInfo WHERE User_id = {id}')).all()
+    print(account)
+    messages = []
+    for chat in chats:
+        messages.append(conn.execute(text(f'SELECT * FROM Chat_message WHERE Chat_id = {chat[0]}')).all())
+    print(messages)
+
+    return render_template('Chat.html',chats=chats, messages=messages, id=id, account=account)
 
 if __name__ == '__main__':
     app.run(debug=True)

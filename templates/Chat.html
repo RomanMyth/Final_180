@@ -1,0 +1,17 @@
+{% if account[0][0] == 'Customer' %}
+    {% extends "taskbar.html" %}
+{% else %}
+    {% extends "vendtask.html" %}
+{% endif %}
+{% block body %}
+    {% for chat in range(chats|length) %}
+        <div>Seperate Chat</div>
+        {% for message in messages[chat] %}
+            {% if message[2] | string == id | string%}
+                <div class="right">{{ message[0] }}</div>
+            {% else %}
+                <div class="left">{{ message[0] }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
