@@ -5,8 +5,9 @@
 
 body {
     font-size: 16px;
-    color: #333;
+    color: black;
     font-family: Arial, sans-serif;
+    background-color: lightgrey;
 }
 
 #Returns {
@@ -17,15 +18,16 @@ body {
 }
 
 #Header {
-    background-color: #f0f0f0;
+    background-color: #598fbc;
     padding: 20px;
     text-align: center;
     margin-bottom: 20px;
+    border: 1px solid #4d7894;
+    border-radius: 10px;
 }
 
-
 .Text-Box {
-    width: 100%;
+    width: 95%;
     border: 1px solid #ddd;
     padding: 10px;
     margin-bottom: 10px;
@@ -37,11 +39,40 @@ body {
 }
 
 #Return_Information {
-    background-color: #fff;
+    background-color: #598fbc;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #4d7894;
+    border-radius: 10px;
 }
 
 textarea {
     resize:none;
+}
+
+input[type=submit] {
+    font-size: 15px;
+    font-weight: bold;
+    width: 25%;
+    height: 35px;
+    margin-bottom:20px;
+    margin-top:10px;
+    border: 1px solid #4d7894;
+    background-color: white;
+    border-radius: 5px;
+}
+
+select{
+    border: 1px solid #4d7894;
+    background-color: white;
+    border-radius: 5px;
+    width: 30%;
+    height: 27px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#Submit_Return {
+    justify-content:center;
+    text-align:center;
 }
