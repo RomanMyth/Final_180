@@ -122,6 +122,9 @@ def update_products():
 @app.route('/product_delete', methods=['POST'])
 def delete_products():
     conn.execute(text(f'DELETE FROM Products Where Product_id = :Product_id'), request.form)
+    conn.execute(text(f'DELETE FROM Colors Where Product_id = :Product_id'), request.form)
+    conn.execute(text(f'DELETE FROM Images Where Product_id = :Product_id'), request.form)
+    conn.execute(text(f'DELETE FROM Sizes Where Product_id = :Product_id'), request.form)
     conn.commit()
     return redirect('/product_edit')
 
