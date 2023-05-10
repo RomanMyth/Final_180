@@ -162,14 +162,20 @@ def add_products_post():
     print(type(warranty))
     pid = conn.execute(text("SELECT max(Product_id) FROM Products;")).one_or_none()
     print(pid[0])
-    conn.execute(
-        text(f"INSERT INTO Sizes (Product_id, Sizes) Values ('{pid[0]}', :Sizes);"),
-        request.form
-    )
-    conn.execute(
-        text(f"INSERT INTO Colors (Product_id, Colors) Values ('{pid[0]}', :Colors);"),
-        request.form
-    )
+    sizes = request.form["Sizes"]
+    list_sizes = sizes.split()
+    for size in list_sizes:
+        conn.execute(
+            text(f"INSERT INTO Sizes (Product_id, Sizes) Values ('{pid[0]}', '{size}');"),
+            request.form
+        )
+    colors = request.form["Colors"]
+    list_colors = colors.split()
+    for color in list_colors:
+        conn.execute(
+            text(f"INSERT INTO Colors (Product_id, Colors) Values ('{pid[0]}', '{color}');"),
+            request.form
+        )
     conn.execute(
         text(f"INSERT INTO Images (Product_id, Image) Values ('{pid[0]}', :Images);"),
         request.form
@@ -240,6 +246,19 @@ def get_admin_chat():
     print(users)
 
     return render_template('Chat.html',chats=chats, messages=messages, id=id, users=users, account=account)
+
+
+@app.route('/reviews', methods=['GET', 'POST'])
+def get_reviews():
+
+    list_reviews = conn.execute(text(f"SELECT * FROM Review WHERE Product_id = :id;"), request.form).all()
+    print(list_reviews)
+    Success = True
+    if len(list_reviews) <= 0:
+        list_reviews = ["There are no reviews for this product yet."]
+        Success = False
+    return render_template('reviews.html', reviews=list_reviews, Success=Success)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

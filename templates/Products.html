@@ -18,6 +18,10 @@
                 <input type="hidden" name="Product_id" value="{{ product[0] }}">
                 <input type="submit" value="Submit" class="sub">
             </form>
+            <form action="/reviews" method="POST">
+                <input type="hidden" name="id" value="{{ product[0] }}">
+                <input type="submit" value="Submit" class="sub">
+            </form>
         </div>
         </div>
         {% endfor %}

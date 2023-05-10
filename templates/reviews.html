@@ -1,0 +1,10 @@
+{% extends "taskbar.html" %}
+{% block body %}
+{% if Success %}
+    {% for review in reviews %}
+        <div><ion-icon name="star"></ion-icon></div>
+    {% endfor %}
+{% else %}
+    <div>{{ reviews[0] }}</div>
+{% endif %}
+{% endblock %}
