@@ -1,32 +1,22 @@
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Page Title</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
-    </head>
-    <link rel="stylesheet" href="../static/order.css">
-    <body>
-        {% extends "taskbar.html" %}
-        {% block body %}
-        <div  id = 'Outline'>
+{% extends "taskbar.html" %}
+{% block body %}
+    <div  id = 'Outline'>
         <div id = 'SignUp'>
             <h1>Orders</h1>
         </div>
-            <div id="con">
-                {% for order in range(orders|length) %}
-                    <div class="order-box" style="padding: 20px;">
-                        <div class="item" style="margin: 15px;">Status: {{ orders[order]['Status'] }}</div>
-                        <div class="item" style="margin: 15px;">Order Date: {{ orders[order]['date_ordered'] }}</div>
-                        {% for product in products[order] %}
-                            {% for i in product %}
-                                <div class="item" style="margin: 15px;">{{ i['Product_name'] }}</div>
-                            {% endfor %}
+        <div id="con">
+            {% for order in range(orders|length) %}
+                <div class="order-box" style="padding: 20px;">
+                    <div class="item" style="margin: 15px;">Status: {{ orders[order]['Status'] }}</div>
+                    <div class="item" style="margin: 15px;">Order Date: {{ orders[order]['date_ordered'] }}</div>
+                    {% for product in products[order] %}
+                        {% for i in product %}
+                            <div class="item" style="margin: 15px;">{{ i['Product_name'] }}</div>
                         {% endfor %}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endblock %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
         </div>
-    </body>
-</html> 
+    </div>
+{% endblock %}
+
