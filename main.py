@@ -206,30 +206,37 @@ def get_orders():
 @app.route('/chat', methods=['GET'])
 def get_customer_chat():
     id = request.cookies.get('User_id')
-    chats = conn.execute(text(f'SELECT Chat_id FROM Chat Where User_id1 = {id}')).all()
+    chats = conn.execute(text(f'SELECT Chat_id, User_id2 FROM Chat Where User_id1 = {id}')).all()
     account = conn.execute(text(f'SELECT Account_type from UserInfo WHERE User_id = {id}')).all()
     print(account)
     messages = []
+    users = []
     print(chats)
-    for chat in chats:
-        messages.append(conn.execute(text(f'SELECT * FROM Chat_message WHERE Chat_id = {chat[0]}')).all())
+    for chat in range(len(chats)):
+        messages.append(conn.execute(text(f'SELECT * FROM Chat_message WHERE Chat_id = {chats[chat][0]}')).all())
+        users.append(conn.execute(text(f'SELECT Name FROM UserInfo WHERE User_id = {chats[chat][1]}')).all())
     print(messages)
+    print(users)
 
-    return render_template('Chat.html', chats=chats, messages=messages, id=id, account=account)
+    return render_template('Chat.html', chats=chats, messages=messages, id=id, users=users, account=account)
 
 
 @app.route('/admin_chat', methods=['GET'])
 def get_admin_chat():
     id = request.cookies.get('User_id')
-    chats = conn.execute(text(f'SELECT Chat_id FROM Chat Where User_id2 = {id}')).all()
+    chats = conn.execute(text(f'SELECT Chat_id, User_id1 FROM Chat Where User_id2 = {id}')).all()
     account = conn.execute(text(f'SELECT Account_type from UserInfo WHERE User_id = {id}')).all()
     print(account)
     messages = []
-    for chat in chats:
-        messages.append(conn.execute(text(f'SELECT * FROM Chat_message WHERE Chat_id = {chat[0]}')).all())
+    users = []
+    print(chats)
+    for chat in range(len(chats)):
+        messages.append(conn.execute(text(f'SELECT * FROM Chat_message WHERE Chat_id = {chats[chat][0]}')).all())
+        users.append(conn.execute(text(f'SELECT Name FROM UserInfo WHERE User_id = {chats[chat][1]}')).all())
     print(messages)
+    print(users)
 
-    return render_template('Chat.html',chats=chats, messages=messages, id=id, account=account)
+    return render_template('Chat.html',chats=chats, messages=messages, id=id, users=users, account=account)
 
 if __name__ == '__main__':
     app.run(debug=True)
