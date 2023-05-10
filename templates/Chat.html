@@ -21,7 +21,7 @@
         </div>
         {% for chat in range(chats|length) %}
         <div class="chat">
-            <div>{{ users[chat][0][0] }}</div>
+            <div class="chatid">{{ users[chat][0][0] }}</div>
             {% for message in messages[chat] %}
                 {% if message[2] | string == id | string%}
                     <div class="right">{{ message[0] }}</div>

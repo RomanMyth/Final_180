@@ -11,19 +11,36 @@
     margin-bottom: 20px;
 }
 .chat {
-    margin: 10px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid black;
+    margin: 50px;
+    border-radius: 5px;
 }
 .right {
-    float: right; 
+    display: flex;
+    justify-content: flex-end;
+    align-self: flex-end;
     background-color: rgb(87, 87, 252); 
     padding: 10px; 
     border-radius: 10px; 
     margin: 5px;
 }
 .left {
-    float: left; 
+    display: flex;
+    justify-content: flex-start;
+    align-self: flex-start;
     background-color: #E6E6E6; 
     padding: 10px;
     border-radius: 10px; 
     margin: 5px;
 }
+.chatid {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #999;
+  }
