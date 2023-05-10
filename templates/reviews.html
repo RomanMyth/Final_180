@@ -1,17 +1,43 @@
-{% extends "taskbar.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews of Misery</title>
+    <link rel="stylesheet" href="../static/reviewsofmissery.css">
+</head>
+<body>
+   {% extends "taskbar.html" %}
 {% block body %}
-<div>Reviews for {{ name[0] }}</div>
-{% if Success %}
-    {% for review in reviews %}
-        <div>
-        {% for i in range(review[3]) %}
-            <ion-icon name="star"></ion-icon>
-        {% endfor %}
-        </div>
-        <div>{{ review['Description'] }}</div>
-        <div><span>{{ review['Name'] }}</span> <span>{{ review['Date_reviewed'] }}</span></div>
-    {% endfor %}
-{% else %}
-    <div>{{ reviews[0] }}</div>
-{% endif %}
-{% endblock %}
+<div  id = 'Outline'>
+    <div id = 'SignUp'>
+        <h1>Reviews for {{ name[0] }}</h1>
+    </div>
+<div id="container">
+    
+    <div id="content">
+        {% if Success %}
+            {% for review in reviews %}
+                <div class="review">
+                    <div class="stars">
+                        {% for i in range(review[3]) %}
+                            <ion-icon name="star"></ion-icon>
+                        {% endfor %}
+                        {% for i in range(5-review[3]) %}
+                            <ion-icon name="star-outline"></ion-icon>
+                        {% endfor %}
+                    </div>
+                    <div class="description">{{ review['Description'] }}</div>
+                    <div class="details"><span class="name">{{ review['Name'] }}</span> <span class="date">{{ review['Date_reviewed'] }}</span></div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="message">{{ reviews[0] }}</div>
+        {% endif %}
+    </div>
+</div>
+</div>
+{% endblock %} 
+</body>
+</html>
