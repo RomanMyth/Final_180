@@ -121,10 +121,10 @@ def update_products():
 
 @app.route('/product_delete', methods=['POST'])
 def delete_products():
-    conn.execute(text(f'DELETE FROM Products Where Product_id = :Product_id'), request.form)
     conn.execute(text(f'DELETE FROM Colors Where Product_id = :Product_id'), request.form)
     conn.execute(text(f'DELETE FROM Images Where Product_id = :Product_id'), request.form)
     conn.execute(text(f'DELETE FROM Sizes Where Product_id = :Product_id'), request.form)
+    conn.execute(text(f'DELETE FROM Products Where Product_id = :Product_id'), request.form)
     conn.commit()
     return redirect('/product_edit')
 
@@ -212,6 +212,7 @@ def get_orders():
     print(order_items[0])
     return render_template('order.html', orders=orders, products=products, success=None)
 
+
 @app.route('/chat', methods=['GET'])
 def get_customer_chat():
     id = request.cookies.get('User_id')
@@ -245,19 +246,20 @@ def get_admin_chat():
     print(messages)
     print(users)
 
-    return render_template('Chat.html',chats=chats, messages=messages, id=id, users=users, account=account)
+    return render_template('Chat.html', chats=chats, messages=messages, id=id, users=users, account=account)
 
 
 @app.route('/reviews', methods=['GET', 'POST'])
 def get_reviews():
 
-    list_reviews = conn.execute(text(f"SELECT * FROM Review WHERE Product_id = :id;"), request.form).all()
+    list_reviews = conn.execute(text(f"SELECT * FROM Review Natural JOIN UserInfo WHERE Product_id = :id;"), request.form).all()
+    name = conn.execute(text(f"SELECT Product_name FROM Products where Product_id = :id;"), request.form).one_or_none()
     print(list_reviews)
     Success = True
     if len(list_reviews) <= 0:
         list_reviews = ["There are no reviews for this product yet."]
         Success = False
-    return render_template('reviews.html', reviews=list_reviews, Success=Success)
+    return render_template('reviews.html', reviews=list_reviews, Success=Success, name=name)
 
 
 if __name__ == '__main__':
