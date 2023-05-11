@@ -215,7 +215,13 @@ def get_orders():
 
 @app.route('/admin_order', methods=['GET'])
 def get_admin_orders():
-    orders = conn.execute(text(f'SELECT Status, date_ordered, Order_id FROM Orders')).all()
+    id = request.cookies.get('User_id')
+    user = conn.execute(text(f"SELECT Account_Type FROM UserInfo WHERE User_id = {id}")).one_or_none()
+    print(user)
+    if user[0] == "Admin":
+        orders = conn.execute(text(f'SELECT Status, date_ordered, Order_id FROM Orders')).all()
+    else:
+        orders = conn.execute(text(f'SELECT orders.Status, orders.date_ordered, orders.Order_id FROM Orders natural join order_items join products on products.product_id = order_items.product_id where products.user_id = {id};')).all()
     print(orders)
     order_items = []
     products = []
