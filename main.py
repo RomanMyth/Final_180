@@ -213,6 +213,34 @@ def get_orders():
     return render_template('order.html', orders=orders, products=products, success=None)
 
 
+@app.route('/admin_order', methods=['GET'])
+def get_admin_orders():
+    orders = conn.execute(text(f'SELECT Status, date_ordered, Order_id FROM Orders')).all()
+    print(orders)
+    order_items = []
+    products = []
+    for i in orders:
+        order_items.append(conn.execute(text(f'SELECT Product_id FROM Order_items WHERE Order_id = {i[2]}')).all())
+
+    for i in order_items:
+        items = []
+        for j in range(len(i)):
+            items.append(conn.execute(
+                text(f"SELECT * FROM Products Natural JOIN Images WHERE Products.Product_id = {i[j][0]};")).all())
+        products.append(items)
+    print('\n', products)
+
+    print(order_items)
+    print(order_items[0])
+    return render_template('Admin_Order.html', orders=orders, products=products, success=None)
+
+@app.route('/admin_order', methods=['POST'])
+def update_order_status():
+    conn.execute(text(f'UPDATE Orders SET Status = :Status WHERE Order_id = :Order_id'), request.form)
+    conn.commit()
+    return redirect('/admin_order')
+
+
 @app.route('/chat', methods=['GET'])
 def get_customer_chat():
     id = request.cookies.get('User_id')
@@ -229,6 +257,13 @@ def get_customer_chat():
     print(users)
 
     return render_template('Chat.html', chats=chats, messages=messages, id=id, users=users, account=account)
+
+@app.route('/chat', methods=['POST'])
+def send_message():
+    conn.execute(text('INSERT INTO Chat_message (`Message`, `Chat_id`, `User_id`) VALUES (:message, :Chat, :Id)'), request.form)
+    conn.commit()
+
+    return redirect('/chat')
 
 
 @app.route('/admin_chat', methods=['GET'])
@@ -261,6 +296,13 @@ def get_reviews():
         Success = False
     return render_template('reviews.html', reviews=list_reviews, Success=Success, name=name)
 
+
+@app.route('/admin_chat', methods=['POST'])
+def send_admin_message():
+    conn.execute(text('INSERT INTO Chat_message (`Message`, `Chat_id`, `User_id`) VALUES (:message, :Chat, :Id)'), request.form)
+    conn.commit()
+
+    return redirect('/admin_chat')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <link rel="stylesheet" href="../static/order.css">
+    <body>
+        {% extends "vendtask.html" %}
+        {% block body %}
+        <div  id = 'Outline'>
+        <div id = 'SignUp'>
+            <h1>Orders</h1>
+        </div>
+            <div id="con">
+                {% for order in range(orders|length) %}
+                    <div class="order-box" style="padding: 20px;">
+                        <div class="item" style="margin: 15px;">Status: {{ orders[order]['Status'] }}</div>
+                        <div class="item" style="margin: 15px;">Order Date: {{ orders[order]['date_ordered'] }}</div>
+                        {% for product in products[order] %}
+                            {% for i in product %}
+                                <div class="item" style="margin: 15px;">{{ i['Product_name'] }}</div>
+                            {% endfor %}
+                        {% endfor %}
+                        <form action="/admin_order" method="POSt">
+                            {% if orders[order]['Status'] != 'Shipped' %}
+                                <select name="Status" class="swag">
+                                    <option>Update Order Status</option>
+                                    <option value="Confirmed">Confirmed</option>
+                                    <option value="Handed to delivery partner">Handed to delivery partner</option>
+                                    <option value="Shipped">Shipped</option>
+                                </select>
+                                <input type="hidden" name="Order_id" value="{{ orders[order][2] }}">
+                                <input type="submit" value="Submit" class="sub">
+                            {% endif %}
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endblock %}
+        </div>
+    </body>
+</html> 

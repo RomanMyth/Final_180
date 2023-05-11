@@ -11,10 +11,10 @@
     {% if account[0][0] == 'Customer' %}
     {% extends "taskbar.html" %}
   
-            {% else %}
-                {% extends "vendtask.html" %}
-            {% endif %}
-            {% block body %}  
+    {% else %}
+        {% extends "vendtask.html" %}
+    {% endif %}
+    {% block body %}
     <div  id = 'Outline'>
         <div id = 'SignUp'>
             <h1>Chats</h1>
@@ -29,6 +29,21 @@
                     <div class="left">{{ message[0] }}</div>
                 {% endif %}
             {% endfor %}
+            {% if account[0][0] == 'Customer' %}
+                <form action="/chat" method="POST">
+                    <textarea name="message" placeholder="Enter a message"></textarea>
+                    <input type="hidden" name="Chat" value="{{ chats[chat][0] }}">
+                    <input type="hidden" value="{{ id }}" name="Id">
+                    <input type="submit" value="Submit">
+                </form>
+            {% else %}
+                <form action="/admin_chat" method="POST">
+                    <textarea name="message" placeholder="Enter a message"></textarea>
+                    <input type="hidden" name="Chat" value="{{ chats[chat][0] }}">
+                    <input type="hidden" value="{{ id }}" name="Id">
+                    <input type="submit" value="Submit">
+                </form>
+            {% endif %}
         </div>
     {% endfor %}
     </div>
