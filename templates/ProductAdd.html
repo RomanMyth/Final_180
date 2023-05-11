@@ -1,4 +1,14 @@
-{% extends "vendtask.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../static/ProductAdd.css" rel="stylesheet" type="text/css">
+    <title>Add Products</title>
+</head>
+<body>
+    {% extends "vendtask.html" %}
 {% block body %}
     <div id = 'Outline'>
         <div id = 'Header'>
@@ -11,7 +21,6 @@
                         {% for vendor in vendors %}
                             <option value="{{ vendor['User_id'] }}" name="vendorid">{{ vendor['Name'] }}</option>
                         {% endfor %}
-
                     </select>
                 {% else %}
                     <input type="hidden" value="{{ id }}" name="vendorid">
@@ -56,3 +65,5 @@
         
     </div>
 {% endblock %}
+</body>
+</html>
