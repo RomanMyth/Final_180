@@ -19,11 +19,10 @@
       
             <div class="container">
                 <div class="product box">{{ item['Product_name'] }}</div>
-                <div class="box"></div>
                 <div class="item box">{{ item['Price'] }}</div>
-                <form action="/cart_remove" method="POST">
+                <form action="/cart_remove" method="POST" class="box">
                     <input type="hidden" name="Product_id" value="{{ item['Product_id'] }}">
-                    <input type="submit" value="Remove From Cart">
+                    <input type="submit" value="Remove From Cart" class="btn1">
                 </form>
             </div>
         {% endfor %}
@@ -31,7 +30,7 @@
     {% if items | length > 0 %}
         <form action="/cart" method="POST">
             <input type="hidden" name="Cart_id" value="{{ items[0][1] }}">
-            <input type="submit" value="Checkout">
+            <input type="submit" value="Checkout" class="btn2">
         </form>
     {% endif %}
 </div>    
