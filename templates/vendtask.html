@@ -20,7 +20,13 @@
                 <div class="taskitem"><a href="/product_edit">Edit/Delete Products</a></div>
                 <div class="taskitem"><a href="/product_add">Add Products</a></div>
             </div>
-            <div id="acctItem"><ion-icon name="person-outline"></ion-icon></div>
+            <div class="dropdown" style="float:right;">
+                <div id="acctItem" class="dropbtn"><ion-icon name="person-outline"></ion-icon></div>
+                <div class="dropdown-content">
+                    <a href="/profile">My Profile</a>
+                    <a href="/">Log Out</a>
+                </div>
+            </div>
         </div>
     </header>
 {% block body %}

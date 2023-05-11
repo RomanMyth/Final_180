@@ -304,5 +304,13 @@ def send_admin_message():
 
     return redirect('/admin_chat')
 
+
+@app.route('/profile', methods=['GET'])
+def get_profile():
+    id = request.cookies.get('User_id')
+    profile = conn.execute(text(f"SELECT * FROM UserInfo where User_id = {id}")).one_or_none()
+    return render_template('profile.html', profile=profile)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
