@@ -3,18 +3,23 @@
 <link rel="stylesheet" href="../static/product.css">
     <div id="con">
         {% for product in products %}
-        <div id="indcon">
-            <div class="prod_con">{{ product['Product_name'] }}</div>
-            <div class="images"><img src="{{ product['Image'] }}"></div>
-            <div class="desc_con">Description:<br>{{ product['Description'] }}</div>
-            {% if product[9] %}
-            <div class="price_con">${{ product['New_price'] }}</div>
-            <div class="old_price_con"><s>${{ product['Price'] }}</s></div>
-            {% else %}
-            <div class="price_con">${{ product['Price'] }}</div>
-            {% endif %}
-        <div id="prodbut">
+            <div id="indcon">
+                <div class="prod_con">{{ product['Product_name'] }}</div>
+                <div class="images"><img src="{{ product['Image'] }}"></div>
+                <div class="desc_con">Description:<br>{{ product['Description'] }}</div>
+                {% if product[9] %}
+                <div class="price_con">${{ product['New_price'] }}</div>
+                <div class="old_price_con"><s>${{ product['Price'] }}</s></div>
+                {% else %}
+                <div class="price_con">${{ product['Price'] }}</div>
+                {% endif %}
+            <div id="prodbut">
             <form action="/products" method="POST">
+                {% if product[9] %}
+                    <input type="hidden" value="{{ product['New_price'] }}" name="Price">
+                {% else %}
+                    <input type="hidden" value="{{ product['Price'] }}" name="Price">
+                {% endif %}
                 <input type="hidden" name="Product_id" value="{{ product[0] }}">
                 <input type="submit" value="Add to Cart" class="sub">
             </form>

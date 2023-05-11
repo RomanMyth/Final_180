@@ -91,7 +91,7 @@ def add_to_cart():
     cid = conn.execute(text(f"SELECT Cart_id FROM cart Where User_id = {id};")).one_or_none()
     print(cid[0])
     conn.execute(
-        text(f"INSERT INTO Cart_Items(`Cart_id`, `Product_id`) VALUES ({cid[0]}, :Product_id);"),
+        text(f"INSERT INTO Cart_Items(`Cart_id`, `Product_id`, `Price`) VALUES ({cid[0]}, :Product_id, :Price);"),
         request.form
     )
     conn.commit()
@@ -187,8 +187,43 @@ def add_products_post():
 @app.route('/cart', methods=['GET'])
 def get_cart_items():
     id = request.cookies.get('User_id')
-    items = conn.execute(text(f"SELECT c.User_id, c.Cart_id, ci.Product_id, p.Product_name, p.Price FROM Cart c NATURAL JOIN Cart_items ci JOIN Products p WHERE c.Cart_id = (SELECT Cart_id FROM Cart WHERE User_id = {id} LIMIT 1) AND p.Product_id = ci.Product_id;")).all()
-    return render_template('Cart.html', items=items, success=None)
+    items = conn.execute(text(f"SELECT c.User_id, c.Cart_id, ci.Product_id, p.Product_name, ci.Price FROM Cart c NATURAL JOIN Cart_items ci JOIN Products p WHERE c.Cart_id = (SELECT Cart_id FROM Cart WHERE User_id = {id} LIMIT 1) AND p.Product_id = ci.Product_id;")).all()
+    print(items)
+    print(len(items))
+    if len(items) > 0:
+        total = conn.execute(text(f"SELECT SUM(Price) FROM Cart_items WHERE Cart_id = {items[0][1]}")).one_or_none()
+        total = round(total[0], 2)
+    else:
+        total = 0
+    return render_template('Cart.html', items=items, total=total, success=None)
+
+
+@app.route('/cart', methods=['POST'])
+def checkout():
+    id = request.cookies.get('User_id')
+    now = datetime.now()
+    now = now.strftime("%Y-%m-%d %H:%M:%S")
+    cart = request.form['Cart_id']
+    print(cart)
+    conn.execute(text(f"INSERT INTO Orders (`Status`, `User_id`, `Cart_id`, `Date_ordered`) VALUES ('Pending', {id}, :Cart_id, '{now}');"), request.form)
+    items = conn.execute(text(f"SELECT ci.Product_id FROM Cart_items ci JOIN Cart c WHERE c.Cart_id = ci.Cart_id and c.User_id = {id};")).all()
+    for item in items:
+        conn.execute(text(f"INSERT INTO Order_items (`Order_id`, `Product_id`) VALUES ((SELECT MAX(Order_id) FROM Orders), {item[0]});"))
+    conn.execute(text(f"DELETE FROM Cart_items WHERE Cart_id = :Cart_id"), request.form)
+    conn.commit()
+    return redirect('/cart')
+
+
+
+
+@app.route('/cart_remove', methods=['GET', 'POST'])
+def remove_from_cart():
+    id = request.cookies.get('User_id')
+    cart = conn.execute(text(f'SELECT Cart_id from Cart WHERE User_id = {id}')).all()
+    conn.execute(text(f'DELETE FROM Cart_items Where Cart_id = {cart[0][0]} and Product_id = :Product_id'), request.form)
+    conn.commit()
+    return redirect('/cart')
+
 
 
 @app.route('/orders', methods=['GET'])

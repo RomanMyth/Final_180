@@ -17,12 +17,23 @@
 <div class="con">
         {% for item in items %}
       
-        <div class="container">
-            <div class="product box">{{ item['Product_name'] }}</div>
-            <div class="box"></div>
-            <div class="item box">{{ item['Price'] }}</div>
-        </div>
+            <div class="container">
+                <div class="product box">{{ item['Product_name'] }}</div>
+                <div class="box"></div>
+                <div class="item box">{{ item['Price'] }}</div>
+                <form action="/cart_remove" method="POST">
+                    <input type="hidden" name="Product_id" value="{{ item['Product_id'] }}">
+                    <input type="submit" value="Remove From Cart">
+                </form>
+            </div>
         {% endfor %}
+    <h2>Total: ${{ total }}</h2>
+    {% if items | length > 0 %}
+        <form action="/cart" method="POST">
+            <input type="hidden" name="Cart_id" value="{{ items[0][1] }}">
+            <input type="submit" value="Checkout">
+        </form>
+    {% endif %}
 </div>    
 </div>
 
