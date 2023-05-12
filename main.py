@@ -387,5 +387,18 @@ def return_submit():
     return redirect('/returns')
 
 
+@app.route('/ad_return', methods=['GET'])
+def recieve_stat():
+    return_list = conn.execute(text(f'SELECT * FROM Returns')).all()
+    print(return_list)
+    return render_template('ad_returns.html', return_list=return_list)
+
+
+@app.route('/ad_return', methods=['POST'])
+def change_stat():
+    conn.execute(text(f'UPDATE Returns SET Status = :Status WHERE Return_id = :Return_id'), request.form)
+    conn.commit()
+    return redirect('/ad_return')
+
 if __name__ == '__main__':
     app.run(debug=True)
