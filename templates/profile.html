@@ -6,7 +6,11 @@
     <link rel="stylesheet" href="../static/profile.css" type="text/css">
 </head>
 <body>
-{% extends "taskbar.html" %}
+{% if profile[5] == 'Customer' %}
+    {% extends "taskbar.html" %}
+{% else %}
+    {% extends "vendtask.html" %}
+{% endif %}
 {% block body %}
 
 <div id = 'Outline'>

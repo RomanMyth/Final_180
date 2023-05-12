@@ -358,7 +358,7 @@ def send_admin_message():
 def get_profile():
     id = request.cookies.get('User_id')
     profile = conn.execute(text(f"SELECT * FROM UserInfo where User_id = {id}")).one_or_none()
-
+    print(profile[5])
     return render_template('profile.html', profile=profile)
 
 
