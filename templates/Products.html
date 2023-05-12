@@ -2,6 +2,13 @@
 {% block body %}
 <link rel="stylesheet" href="../static/product.css">
     <div id="con">
+        <form action="/search" method="POST">
+            <textarea name='Search' rows="1" cols="20" placeholder="Search name or Description"></textarea>
+            <input type="submit" value="Search">
+        </form>
+        <form action="/products" method="GET">
+            <input type="submit" value="Clear Search">
+        </form>
         {% for product in products %}
             <div id="indcon">
                 <div class="prod_con">{{ product['Product_name'] }}</div>
