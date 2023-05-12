@@ -37,3 +37,35 @@ box-sizing: border-box;
 body{
     background-color: lightgrey;
 }
+textarea{
+    resize: none;
+}
+#prdthing{
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+#num305{
+    margin: 10px;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #4d7894;
+}
+.rev2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin: 20px;
+}
+#sub{
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    border: 1px solid #4d7894;
+    border-radius: 5px;
+}
+#cleanup{
+    margin-bottom: 15px;
+}
