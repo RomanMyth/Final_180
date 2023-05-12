@@ -8,15 +8,24 @@
 <body>
 {% extends "taskbar.html" %}
 {% block body %}
-    <div>Hello, {{ profile[1] }}</div>
-    <div>Name: {{ profile[2] }}</div>
-    <div>Email: {{ profile[3] }}</div>
-    <div class="dropdown" >
-        <button class="dropbtn">Show Password</button>
-        <div class="dropdown-contentp">
-            <div>Password: {{ profile[4] }}</div>
+
+<div id = 'Outline'>
+    <div>
+        <h1 id = 'Info'>Account Info</h1>
+    </div>
+        <div id = 'info-outline'>
+            <div class = 'Text'>Hello, {{ profile[1] }}</div>
+            <div class = 'Text'>Name: {{ profile[2] }}</div>
+            <div class = 'Text'>Email: {{ profile[3] }}</div>
+            <div class="dropdown" >
+                <button class="dropbtn">Show Password</button>
+                <div class="dropdown-contentp">
+                    <div>Password: {{ profile[4] }}</div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 {% endblock %}
 </body>
 </html>
