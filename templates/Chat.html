@@ -32,35 +32,34 @@
             {% endif %}
         </div>
         {% for chat in range(chats|length) %}
-        <div class="chat">
-            <div class="chatid">{{ users[chat][0][0] }}</div>
-            {% for message in messages[chat] %}
-                {% if message[2] | string == id | string%}
-                    <div class="right">{{ message[0] }}</div>
-                {% else %}
-                    <div class="left">{{ message[0] }}</div>
-                {% endif %}
-            {% endfor %}
-            <div class="txthold">
-                 {% if account[0][0] == 'Customer' %}
-                <form action="/chat" method="POST" class="text">
-                    <textarea name="message" placeholder="Enter a message" cols="40" rows="6"></textarea>
-                    <input type="hidden" name="Chat" value="{{ chats[chat][0] }}">
-                    <input type="hidden" value="{{ id }}" name="Id">
-                    <input type="submit" value="Submit" class="sub">
-                </form>
-            {% else %}
-                <form action="/admin_chat" method="POST"  class="text">
-                    <textarea name="message" placeholder="Enter a message" cols="40" rows="6"></textarea>
-                    <input type="hidden" name="Chat" value="{{ chats[chat][0] }}">
-                    <input type="hidden" value="{{ id }}" name="Id">
-                    <input type="submit" value="Submit" class="sub">
-                </form>
+            <div class="chat">
+                <div class="chatid">{{ users[chat][0][0] }}</div>
+                {% for message in messages[chat] %}
+                    {% if message[2] | string == id | string%}
+                        <div class="right">{{ message[0] }}</div>
+                    {% else %}
+                        <div class="left">{{ message[0] }}</div>
+                    {% endif %}
+                {% endfor %}
+                <div class="txthold">
+                     {% if account[0][0] == 'Customer' %}
+                        <form action="/chat" method="POST" class="text">
+                            <textarea name="message" placeholder="Enter a message" cols="40" rows="6"></textarea>
+                            <input type="hidden" name="Chat" value="{{ chats[chat][0] }}">
+                            <input type="hidden" value="{{ id }}" name="Id">
+                            <input type="submit" value="Submit" class="sub">
+                        </form>
+                    {% else %}
+                        <form action="/admin_chat" method="POST"  class="text">
+                            <textarea name="message" placeholder="Enter a message" cols="40" rows="6"></textarea>
+                            <input type="hidden" name="Chat" value="{{ chats[chat][0] }}">
+                            <input type="hidden" value="{{ id }}" name="Id">
+                            <input type="submit" value="Submit" class="sub">
+                        </form>
+                    {% endif %}
+                </div>
             </div>
-           
-            {% endif %}
-        </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 {% endblock %}
 </body>

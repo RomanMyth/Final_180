@@ -17,7 +17,7 @@
         <div id = 'Info-Boxes'>
             <form action="/product_add" method="POST">
                 {% if account[0][0] == 'Admin' %}
-                    <select>
+                    <select name="vendorid">
                         {% for vendor in vendors %}
                             <option value="{{ vendor['User_id'] }}" name="vendorid">{{ vendor['Name'] }}</option>
                         {% endfor %}
