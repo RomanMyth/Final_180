@@ -1,14 +1,17 @@
 {% extends "taskbar.html" %}
 {% block body %}
 <link rel="stylesheet" href="../static/product.css">
-    <div id="con">
-        <form action="/search" method="POST">
-            <textarea name='Search' rows="1" cols="20" placeholder="Search name or Description"></textarea>
-            <input type="submit" value="Search">
+    <div class="maxhatesjon">
+             <form action="/search" method="POST" class="holdpls">
+            <textarea name='Search' rows="3" cols="30" placeholder="Search name or Description"></textarea>
+            <input type="submit" value="Search" id="btn3">
         </form>
         <form action="/products" method="GET">
-            <input type="submit" value="Clear Search">
+            <input type="submit" value="Clear Search" id="btn3">
         </form>
+    </div>
+        
+    <div id="con">   
         {% for product in products %}
             <div id="indcon">
                 <div class="prod_con">{{ product['Product_name'] }}</div>
