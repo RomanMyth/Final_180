@@ -278,13 +278,15 @@ def get_customer_chat():
     id = request.cookies.get('User_id')
     chats = conn.execute(text(f'SELECT Chat_id, User_id2 FROM Chat Where User_id1 = {id}')).all()
     account = conn.execute(text(f'SELECT Account_type from UserInfo WHERE User_id = {id}')).all()
+    vendors = conn.execute(text("SELECT Name, User_id FROM UserInfo WHERE Account_type = 'Vendor'")).all()
+    print(vendors)
     messages = []
     users = []
     for chat in range(len(chats)):
         messages.append(conn.execute(text(f'SELECT * FROM Chat_message WHERE Chat_id = {chats[chat][0]}')).all())
         users.append(conn.execute(text(f'SELECT Name FROM UserInfo WHERE User_id = {chats[chat][1]}')).all())
 
-    return render_template('Chat.html', chats=chats, messages=messages, id=id, users=users, account=account)
+    return render_template('Chat.html', chats=chats, messages=messages, id=id, users=users, account=account, vendors=vendors)
 
 @app.route('/chat', methods=['POST'])
 def send_message():
@@ -293,6 +295,15 @@ def send_message():
 
     return redirect('/chat')
 
+@app.route('/new_message', methods=['POST'])
+def new_message():
+    id = request.cookies.get('User_id')
+    conn.execute(text(f'INSERT INTO Chat (`User_id1`, `User_id2`) VALUES ({id}, :New)'), request.form)
+    chat_id = conn.execute(text(f'SELECT Chat_id FROM Chat WHERE User_id1 = {id} and User_id2 = :New'), request.form).all()
+    conn.execute(text(f'INSERT INTO Chat_message (`Message`, `Chat_id`, `User_id`) VALUES (:message, {chat_id[0][0]}, {id})'), request.form)
+    conn.commit()
+
+    return redirect('/chat')
 
 @app.route('/admin_chat', methods=['GET'])
 def get_admin_chat():

@@ -18,6 +18,18 @@
     <div  id = 'Outline'>
         <div id = 'SignUp'>
             <h1>Chats</h1>
+            {% if account[0][0] == 'Customer' %}
+            <form action="/new_message" method="POST">
+                <select name="New">
+                    <option>Start a new chat with a vendor</option>
+                    {% for vendor in vendors %}
+                        <option value="{{ vendor[1] }}">{{ vendor[0] }}</option>
+                    {% endfor %}
+                </select>
+                <textarea name="message" placeholder="What do you need to say"></textarea>
+                <input type="submit" value="Send message">
+            </form>
+            {% endif %}
         </div>
         {% for chat in range(chats|length) %}
         <div class="chat">
