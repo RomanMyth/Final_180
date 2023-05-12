@@ -19,5 +19,25 @@
             {% endfor %}
         </div>
     </div>
+    <form action="/orders" method="POST">
+        <div>
+            <div>Item Select</div>
+            <select name='product_id'>
+                <option>None</option>
+                {% for item in review_item_list %}
+                    <option value="{{ item['Product_id'] }}">{{ item['Product_name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>Please input your rating from 1 to 5.</div>
+        <input type="number" name="rating" id="rating" min="1" max="5">
+        <div>
+            <div>Please write a review for the product:</div>
+            <textarea name="desc" class = 'Text-Box' cols="50" rows="8"></textarea>
+        </div>
+        <div>
+            <input type = 'submit' value = 'Submit Review'>
+        </div>
+    </form>
 {% endblock %}
 

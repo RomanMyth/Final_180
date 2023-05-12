@@ -239,8 +239,23 @@ def get_orders():
         for j in range(len(i)):
             items.append(conn.execute(text(f"SELECT * FROM Products Natural JOIN Images WHERE Products.Product_id = {i[j][0]};")).all())
         products.append(items)
+    review_item_list = conn.execute(text(f'Select Distinct Product_name, Products.Product_id from products join order_items natural join orders on products.product_id = order_items.product_id where orders.user_id = {User_id}')).all()
 
-    return render_template('order.html', orders=orders, products=products, success=None)
+    return render_template('order.html', orders=orders, products=products, success=None, review_item_list=review_item_list)
+
+
+@app.route('/orders', methods=['POST'])
+def write_review():
+    time = datetime.now()
+    time = time.strftime('%Y-%m-%d %H:%M:%S')
+    id = request.cookies.get('User_id')
+    conn.execute(
+        text(f"INSERT INTO Review (Date_reviewed, Description, Rating, Product_id, User_id) Values ('{time}', :desc, :rating, :product_id, '{id}');"),
+        request.form
+    )
+    conn.commit()
+    return redirect("/orders")
+
 
 
 @app.route('/admin_order', methods=['GET'])
