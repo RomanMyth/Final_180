@@ -1,20 +1,41 @@
-{% extends "vendtask.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/ad_returns.css">
+</head>
+<body>
+    {% extends "vendtask.html" %}
 {% block body %}
     {% for return in return_list %}
+    <div  id = 'Outline'>
+        <div id = 'SignUp'>
+            <h1>Returns</h1>
+        </div>
+        <div class="container">
         <div>{{ return['Date_requested'] }}</div>
         <div>{{ return['Description'] }}</div>
         <div>{{ return['Demand'] }}</div>
-        <img src="{{ return['Image'] }}">
+        <img src="{{ return['Image'] }}" class="images">
+        <h3>Return Status:</h3>
         <div>{{ return['Status'] }}</div>
         <form action="/ad_return" method="post">
             <input type="hidden" name='Return_id' value="{{ return[8] }}">
-            <select name="Status">
+            <select name="Status" id="opt">
                 <option value="Rejected">Rejected</option>
                 <option value="Confirmed">Confirmed</option>
                 <option value="Processing">Processing</option>
                 <option value="Complete">Complete</option>
             </select>
-            <input type="submit" value="Change Status">
+            <input type="submit" value="Change Status" id="opt2">
         </form>
+        </div>
+       
     {% endfor %}
+    </div>
 {% endblock %}
+</body>
+</html>
