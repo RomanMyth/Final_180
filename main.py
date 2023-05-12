@@ -336,5 +336,30 @@ def get_profile():
     return render_template('profile.html', profile=profile)
 
 
+
+
+@app.route('/returns', methods=['GET'])
+def get_returns_list():
+    id = request.cookies.get('User_id')
+    returns = conn.execute(text(f'SELECT Returns.*, Products.Product_name FROM Returns JOIN Products ON Products.Product_id = Returns.Product_id WHERE Returns.User_id = {id}')).all()
+    print(returns)
+    return_item_list = conn.execute(text(f'Select Product_name, orders.Order_id from products join order_items natural join orders on products.product_id = order_items.product_id where orders.user_id = {id}')).all()
+    return render_template('Returns.html', returns=returns, return_item_list=return_item_list)
+
+@app.route('/returns', methods=['POST'])
+def return_submit():
+    time = datetime.now()
+    time = time.strftime('%Y-%m-%d %H:%M:%S')
+    order_item = request.form['Return_Items']
+    print(order_item)
+    order = order_item.split(',')
+    product_id = conn.execute(text(f'SELECT Product_id FROM Products WHERE Product_name = "{order[0]}";'), request.form).all()
+    id = request.cookies.get('User_id')
+    conn.execute(text(f'INSERT INTO Returns (Date_requested, Description, Demand, Image, Product_id, User_id, Order_id) VALUES ("{time}", :comp_name, :customer_demand, :comp_img, {product_id[0][0]}, {id}, {order[1]});'), request.form)
+    conn.commit()
+
+    return redirect('/returns')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

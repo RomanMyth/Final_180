@@ -1,38 +1,53 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends "taskbar.html" %}
+{% block body %}
     <meta charset='utf-8'>
     <title>Returns</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../static/Returns.css'>
-</head>
-<body>
     <div id = 'Returns'>
         <div id = 'Header'>
             <h1>Returns</h1>
         </div>
         <div id = 'Return_Information'>
-            <form>
-            <div id = 'Product_Id' class = 'Info'>
-                <div>Product ID</div>
-                <input type = 'Text' class = 'Text-Box'>
-            </div>
-            <div id = 'Description' class = 'Info'>
-                <div>How has this product caused you trouble?</div>
-                <textarea class = 'Text-Box' cols="50" rows="8"></textarea>
-            </div>
-            <div id = 'Demand' class = 'Info'>
-                <div>Please select how you would like to be compensated</div>
-                <select name = 'customer_demand'>
-                    <option value = 'Return'>Return</option>
-                    <option value = 'Refund'>Refund</option>
-                    <option value = 'Warranty Claim'>Warranty Claim</option>
-                </select>
-            </div>
-            <div id = 'Submit_Return'>
-                <input type = 'submit' value = 'Submit Return' id = 'Submit_Buttom'>
-            </div>
+            <form action="/returns" method="post">
+                <div id = 'Product_Id' class = 'Info'>
+                    <div>Item Select</div>
+                    <select name='Return_Items'>
+                        <option>None</option>
+                        {% for item in return_item_list %}
+                            <option value="{{ item['Product_name'] }}, {{ item['Order_id'] }}">{{ item['Product_name'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id = 'Description' class = 'Info'>
+                    <div>How has this product caused you trouble?</div>
+                    <textarea name="comp_name" class = 'Text-Box' cols="50" rows="8"></textarea>
+                </div>
+                 <div id = 'Image' class = 'Info'>
+                    <div>Please provide a image link to product</div>
+                    <textarea name="comp_img" class = 'Text-Box' cols="50" rows="8"></textarea>
+                </div>
+                    <div>Please select how you would like to be compensated</div>
+                <div id = 'Demand' class = 'Info'>
+                    <select name = 'customer_demand'>
+                        <option value = 'Return'>Return</option>
+                        <option value = 'Refund'>Refund</option>
+                        <option value = 'Warranty Claim'>Warranty Claim</option>
+                    </select>
+                </div>
+                <div id = 'Submit_Return'>
+                    <input type = 'submit' value = 'Submit Return' id = 'Submit_Buttom'>
+                </div>
             </form>
         </div>
+    {% for return in returns %}
+        <div id="con_items">
+            <div class="prod_name">{{ return['Product_name'] }}</div>
+            <div>Request Date: {{ return['Date_requested'] }}</div>
+            <div class="images"><img src="{{ return['Image'] }}"></div>
+            <div class="desc_item">Issue: {{ return['Description'] }}</div>
+            <div class="desc_item">Request: {{ return['Demand']  }}</div>
+            <div class="stat">Status: {{ return['Status'] }}</div>
+        </div>
+    {% endfor %}
     </div>
-</body>
-</html>
+{% endblock %}
